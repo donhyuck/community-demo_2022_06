@@ -46,6 +46,17 @@ public class UserArticleController {
 		return article;
 	}
 
+	private Article getArticle(int id) {
+
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				return article;
+			}
+		}
+
+		return null;
+	}
+
 	// 서비스 메서드 끝
 
 	// 액션 메서드 시작
@@ -54,6 +65,15 @@ public class UserArticleController {
 	public Article doAdd(String title, String body) {
 
 		Article article = writeArticle(title, body);
+		return article;
+	}
+
+	@RequestMapping("/user/article/getArticle")
+	@ResponseBody
+	public Object getArticleForPrint(int id) {
+
+		Article article = getArticle(id);
+
 		return article;
 	}
 
