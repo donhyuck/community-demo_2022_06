@@ -57,6 +57,13 @@ public class UserArticleController {
 		return null;
 	}
 
+	private void deleteArticle(int id) {
+
+		Article article = getArticle(id);
+
+		articles.remove(article);
+	}
+
 	// 서비스 메서드 끝
 
 	// 액션 메서드 시작
@@ -82,6 +89,20 @@ public class UserArticleController {
 	public List<Article> getArticles() {
 
 		return articles;
+	}
+
+	@RequestMapping("/user/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+
+		Article article = getArticle(id);
+
+		if (article == null) {
+			return id + "번 게시물을 찾을 수 없습니다.";
+		}
+
+		deleteArticle(id);
+		return id + "번 게시물을 삭제했습니다.";
 	}
 	// 액션 메서드 끝
 }
