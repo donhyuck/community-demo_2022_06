@@ -1,6 +1,5 @@
 package com.ldh.example.webdemo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +16,25 @@ public class UserArticleController {
 	@Autowired
 	ArticleService articleService;
 
-	@RequestMapping("/user/article/doAdd")
-	@ResponseBody
-	public Article doAdd(String title, String body) {
-
-		Article article = articleService.writeArticle(title, body);
-		return article;
-	}
-
 	@RequestMapping("/user/article/getArticle")
 	@ResponseBody
 	public Object getArticleForPrint(int id) {
 
-		Article article = articleService.getArticle(id);
-
-		return article;
+		return articleService.getArticle(id);
 	}
 
 	@RequestMapping("/user/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
 
-		return articleService.articles;
+		return articleService.getArticles();
+	}
+
+	@RequestMapping("/user/article/doAdd")
+	@ResponseBody
+	public Article doAdd(String title, String body) {
+
+		return articleService.writeArticle(title, body);
 	}
 
 	@RequestMapping("/user/article/doModify")
@@ -52,6 +48,7 @@ public class UserArticleController {
 		}
 
 		articleService.modifyArticle(id, title, body);
+
 		return id + "번 게시물을 수정했습니다.";
 	}
 
@@ -66,6 +63,7 @@ public class UserArticleController {
 		}
 
 		articleService.deleteArticle(id);
+
 		return id + "번 게시물을 삭제했습니다.";
 	}
 }
