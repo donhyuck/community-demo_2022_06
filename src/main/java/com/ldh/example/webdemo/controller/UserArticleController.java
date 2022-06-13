@@ -14,7 +14,7 @@ import com.ldh.example.webdemo.vo.Article;
 public class UserArticleController {
 
 	@Autowired
-	ArticleService articleService;
+	private ArticleService articleService;
 
 	@RequestMapping("/user/article/getArticle")
 	@ResponseBody

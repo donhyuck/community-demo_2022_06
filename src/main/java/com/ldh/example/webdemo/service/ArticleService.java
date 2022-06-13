@@ -12,7 +12,7 @@ import com.ldh.example.webdemo.vo.Article;
 public class ArticleService {
 
 	@Autowired
-	ArticleRepository articleRepository;
+	private ArticleRepository articleRepository;
 
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
