@@ -2,22 +2,30 @@ package com.ldh.example.webdemo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.ldh.example.webdemo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
 
-	public Article getArticle(int id);
+	@Select("SELECT * FROM article WHERE id = #{id}")
+	public Article getArticle(@Param("id") int id);
 
+	@Select("SELECT * FROM article ORDER BY id DESC")
 	public List<Article> getArticles();
 
-	public Article writeArticle(String title, String body);
+	@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}")
+	public Article writeArticle(@Param("title") String title, @Param("body") String body);
 
-	public void modifyArticle(int id, String title, String body);
+	@Update("UPDATE article SET updateDate = NOW(), title = #{title}, `body` = #{body} WHERE id = #{id}")
+	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 
-	public void deleteArticle(int id);
+	@Delete("DELETE FROM article WHERE id = #{id}")
+	public void deleteArticle(@Param("id") int id);
 }
