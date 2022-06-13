@@ -34,7 +34,11 @@ public class UserArticleController {
 	@ResponseBody
 	public Article doAdd(String title, String body) {
 
-		return articleService.writeArticle(title, body);
+		int id = articleService.writeArticle(title, body);
+
+		Article article = articleService.getArticle(id);
+
+		return article;
 	}
 
 	@RequestMapping("/user/article/doModify")

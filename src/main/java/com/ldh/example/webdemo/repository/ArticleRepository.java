@@ -21,11 +21,14 @@ public interface ArticleRepository {
 	public List<Article> getArticles();
 
 	@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}")
-	public Article writeArticle(@Param("title") String title, @Param("body") String body);
+	public void writeArticle(@Param("title") String title, @Param("body") String body);
 
 	@Update("UPDATE article SET updateDate = NOW(), title = #{title}, `body` = #{body} WHERE id = #{id}")
 	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 
 	@Delete("DELETE FROM article WHERE id = #{id}")
 	public void deleteArticle(@Param("id") int id);
+
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
 }
