@@ -36,9 +36,7 @@ public class UserArticleController {
 
 		int id = articleService.writeArticle(title, body);
 
-		Article article = articleService.getArticle(id);
-
-		return article;
+		return articleService.getArticle(id);
 	}
 
 	@RequestMapping("/user/article/doModify")
