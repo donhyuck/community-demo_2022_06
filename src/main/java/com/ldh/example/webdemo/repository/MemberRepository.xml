@@ -16,4 +16,10 @@
 		cellphoneNo = #{cellphoneNo},
 		email = #{email}
 	</insert>
+
+	<select id="getMemberById" resultType="Member">
+		SELECT *
+		FROM `member` AS m
+		WHERE m.id = #{id}
+	</select>
 </mapper>

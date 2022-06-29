@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.MemberService;
+import com.ldh.example.webdemo.vo.Member;
 
 @Controller
 public class UserMemberController {
@@ -15,11 +16,13 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doJoin")
 	@ResponseBody
-	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+	public Member doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 
-		memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
+		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
-		return "회원등록이 완료되었습니다.";
+		Member member = memberService.getMemberById(id);
+
+		return member;
 	}
 }

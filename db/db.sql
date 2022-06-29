@@ -88,4 +88,8 @@ nickname = 'test2',
 cellphoneNo = '01011111112',
 email = 'test2@test.com';
 
+SELECT LAST_INSERT_ID();
 SELECT * FROM `member`;
+
+SELECT * FROM `member` AS m
+WHERE m.id = 1; 
