@@ -15,9 +15,11 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doJoin")
 	@ResponseBody
-	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
 
-		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
+		memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
+		return "회원등록이 완료되었습니다.";
 	}
 }

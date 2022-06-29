@@ -15,9 +15,9 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 
 		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
-		return 0;
+
 	}
 }
