@@ -26,7 +26,7 @@
 	<select id="getMemberByLoginId" resultType="Member">
 		SELECT *
 		FROM `member`
-		AS m 
+		AS m
 		WHERE m.loginId = #{loginId}
 	</select>
 </mapper>
