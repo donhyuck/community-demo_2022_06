@@ -47,11 +47,11 @@ public class UserMemberController {
 		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		if (id == -1) {
-			return "해당 로그인 아이디는 이미 등록되었습니다.";
+			return Ut.f("입력하신 아이디는 [ %s ] 이미 사용중입니다.", loginId);
 		}
 
 		if (id == -2) {
-			return "해당 이름과 이메일은 이미 등록되었습니다.";
+			return Ut.f("입력하신 이름 [ %s ], 이메일 [ %s ] 은 이미 등록되었습니다.", name, email);
 		}
 
 		Member member = memberService.getMemberById(id);
