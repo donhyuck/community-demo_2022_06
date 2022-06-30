@@ -22,4 +22,11 @@
 		FROM `member` AS m
 		WHERE m.id = #{id}
 	</select>
+
+	<select id="getMemberByLoginId" resultType="Member">
+		SELECT *
+		FROM `member`
+		AS m 
+		WHERE m.loginId = #{loginId}
+	</select>
 </mapper>

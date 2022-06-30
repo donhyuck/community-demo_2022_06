@@ -17,6 +17,12 @@ public class MemberService {
 
 	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 
+		Member oldMember = getMemberByLoginId(loginId);
+
+		if (oldMember != null) {
+			return -1;
+		}
+
 		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		return memberRepository.getLastInsertId();
@@ -24,5 +30,9 @@ public class MemberService {
 
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
+	}
+
+	private Member getMemberByLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
 	}
 }
