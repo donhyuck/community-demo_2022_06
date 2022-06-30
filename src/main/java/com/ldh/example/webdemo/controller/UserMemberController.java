@@ -50,6 +50,10 @@ public class UserMemberController {
 			return "해당 로그인 아이디는 이미 등록되었습니다.";
 		}
 
+		if (id == -2) {
+			return "해당 이름과 이메일은 이미 등록되었습니다.";
+		}
+
 		Member member = memberService.getMemberById(id);
 
 		return member;

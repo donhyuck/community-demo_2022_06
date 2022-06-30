@@ -18,4 +18,6 @@ public interface MemberRepository {
 	public Member getMemberById(@Param("id") int id);
 
 	public Member getMemberByLoginId(@Param("loginId") String loginId);
+
+	public Member getMemberByNameAndEmail(@Param("name") String name, @Param("email") String email);
 }

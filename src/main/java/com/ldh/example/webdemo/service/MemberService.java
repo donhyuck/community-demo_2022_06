@@ -17,10 +17,18 @@ public class MemberService {
 
 	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 
+		// 회원가입시 로그인아이디 중복 검사
 		Member oldMember = getMemberByLoginId(loginId);
 
 		if (oldMember != null) {
 			return -1;
+		}
+
+		// 회원가입시 이름과 이메일 중복 검사
+		oldMember = getMemberByNameAndEmail(name, email);
+
+		if (oldMember != null) {
+			return -2;
 		}
 
 		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
@@ -34,5 +42,9 @@ public class MemberService {
 
 	private Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
+	}
+
+	private Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
 }

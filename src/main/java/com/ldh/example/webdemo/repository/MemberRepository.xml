@@ -29,4 +29,13 @@
 		AS m
 		WHERE m.loginId = #{loginId}
 	</select>
+
+	<select id="getMemberByNameAndEmail" resultType="Member">
+		SELECT *
+		FROM
+		`member`
+		AS m
+		WHERE m.name = #{name}
+		AND m.email = #{email}
+	</select>
 </mapper>
