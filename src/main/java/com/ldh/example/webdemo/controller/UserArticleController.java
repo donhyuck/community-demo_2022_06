@@ -77,16 +77,16 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doDelete")
 	@ResponseBody
-	public String doDelete(int id) {
+	public ResultData<Integer> doDelete(int id) {
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return id + "번 게시물을 찾을 수 없습니다.";
+			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id), id);
 		}
 
 		articleService.deleteArticle(id);
 
-		return id + "번 게시물을 삭제했습니다.";
+		return ResultData.from("S-1", Ut.f("%s번 게시물이 삭제되었습니다.", id), id);
 	}
 }
