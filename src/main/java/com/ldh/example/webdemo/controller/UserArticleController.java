@@ -25,7 +25,7 @@ public class UserArticleController {
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		return ResultData.from("S-1", Ut.f("%s번 게시물입니다.", id), article);
@@ -33,9 +33,11 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/getArticles")
 	@ResponseBody
-	public List<Article> getArticles() {
+	public ResultData getArticles() {
 
-		return articleService.getArticles();
+		List<Article> articles = articleService.getArticles();
+
+		return ResultData.from("S-1", "게시글 목록입니다.", articles);
 	}
 
 	@RequestMapping("/user/article/doAdd")
@@ -60,17 +62,25 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public String doModify(int id, String title, String body) {
+	public ResultData doModify(int id, String title, String body) {
+
+		if (Ut.empty(title)) {
+			return ResultData.from("F-2", "title(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(body)) {
+			return ResultData.from("F-3", "body(을)를 입력해주세요.");
+		}
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return id + "번 게시물을 찾을 수 없습니다.";
+			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		articleService.modifyArticle(id, title, body);
+		ResultData modifyArticleRd = articleService.modifyArticle(id, title, body);
 
-		return id + "번 게시물을 수정했습니다.";
+		return ResultData.from(modifyArticleRd.getResultCode(), modifyArticleRd.getMsg(), modifyArticleRd.getData1());
 	}
 
 	@RequestMapping("/user/article/doDelete")
