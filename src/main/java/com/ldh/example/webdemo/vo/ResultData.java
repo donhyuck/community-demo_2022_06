@@ -2,7 +2,7 @@ package com.ldh.example.webdemo.vo;
 
 import lombok.Getter;
 
-public class ResultData {
+public class ResultData<DT> {
 
 	// 처리결과 성공 S-xx, 실패 F-xx
 	@Getter
@@ -10,7 +10,7 @@ public class ResultData {
 	@Getter
 	private String msg;
 	@Getter
-	private Object data1;
+	private DT data1;
 
 	private ResultData() {
 
@@ -21,9 +21,9 @@ public class ResultData {
 		return from(resultCode, msg, null);
 	}
 
-	public static ResultData from(String resultCode, String msg, Object data1) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg, DT data1) {
 
-		ResultData rd = new ResultData();
+		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
 		rd.data1 = data1;
@@ -39,7 +39,7 @@ public class ResultData {
 		return isSuccess() == false;
 	}
 
-	public static ResultData newData(ResultData joinRd, Object newData) {
-		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	public static <DT> ResultData<DT> newData(ResultData Rd, DT newData) {
+		return from(Rd.getResultCode(), Rd.getMsg(), newData);
 	}
 }
