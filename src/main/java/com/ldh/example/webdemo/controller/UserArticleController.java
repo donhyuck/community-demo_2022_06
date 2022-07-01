@@ -57,7 +57,7 @@ public class UserArticleController {
 
 		Article article = articleService.getArticle(id);
 
-		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
+		return ResultData.newData(writeArticleRd, article);
 	}
 
 	@RequestMapping("/user/article/doModify")
@@ -78,9 +78,9 @@ public class UserArticleController {
 			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		ResultData modifyArticleRd = articleService.modifyArticle(id, title, body);
+		articleService.modifyArticle(id, title, body);
 
-		return ResultData.from(modifyArticleRd.getResultCode(), modifyArticleRd.getMsg(), modifyArticleRd.getData1());
+		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), id);
 	}
 
 	@RequestMapping("/user/article/doDelete")

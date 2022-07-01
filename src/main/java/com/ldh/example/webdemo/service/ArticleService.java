@@ -39,14 +39,9 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public ResultData modifyArticle(int id, String title, String body) {
-
-		articleRepository.modifyArticle(id, title, body);
+	public void modifyArticle(int id, String title, String body) {
 
 		Article article = articleRepository.getArticle(id);
-
-		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), article);
-
 	}
 
 	public void deleteArticle(int id) {
