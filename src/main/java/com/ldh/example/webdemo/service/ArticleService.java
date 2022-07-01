@@ -20,7 +20,7 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData writeArticle(String title, String body) {
+	public ResultData<Integer> writeArticle(String title, String body) {
 
 		articleRepository.writeArticle(title, body);
 
@@ -41,7 +41,7 @@ public class ArticleService {
 
 	public void modifyArticle(int id, String title, String body) {
 
-		Article article = articleRepository.getArticle(id);
+		articleRepository.modifyArticle(id, title, body);
 	}
 
 	public void deleteArticle(int id) {

@@ -20,7 +20,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/getArticle")
 	@ResponseBody
-	public ResultData getArticle(int id) {
+	public ResultData<Article> getArticle(int id) {
 
 		Article article = articleService.getArticle(id);
 
@@ -33,7 +33,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/getArticles")
 	@ResponseBody
-	public ResultData getArticles() {
+	public ResultData<List<Article>> getArticles() {
 
 		List<Article> articles = articleService.getArticles();
 
@@ -42,7 +42,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doAdd")
 	@ResponseBody
-	public ResultData doAdd(String title, String body) {
+	public ResultData<Article> doAdd(String title, String body) {
 
 		if (Ut.empty(title)) {
 			return ResultData.from("F-1", "title(을)를 입력해주세요.");
@@ -52,8 +52,8 @@ public class UserArticleController {
 			return ResultData.from("F-2", "body(을)를 입력해주세요.");
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(title, body);
-		int id = (int) writeArticleRd.getData1();
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body);
+		int id = writeArticleRd.getData1();
 
 		Article article = articleService.getArticle(id);
 
@@ -62,15 +62,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
-
-		if (Ut.empty(title)) {
-			return ResultData.from("F-2", "title(을)를 입력해주세요.");
-		}
-
-		if (Ut.empty(body)) {
-			return ResultData.from("F-3", "body(을)를 입력해주세요.");
-		}
+	public ResultData<Integer> doModify(int id, String title, String body) {
 
 		Article article = articleService.getArticle(id);
 

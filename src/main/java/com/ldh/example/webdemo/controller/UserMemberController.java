@@ -18,7 +18,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 
 		if (Ut.empty(loginId)) {
@@ -48,7 +48,7 @@ public class UserMemberController {
 		ResultData joinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		if (joinRd.isFail()) {
-			return joinRd;
+			return (ResultData) joinRd;
 		}
 
 		Member member = memberService.getMemberById((int) joinRd.getData1());
