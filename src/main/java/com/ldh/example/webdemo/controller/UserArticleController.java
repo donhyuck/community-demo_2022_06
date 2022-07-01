@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.ArticleService;
+import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Article;
+import com.ldh.example.webdemo.vo.ResultData;
 
 @Controller
 public class UserArticleController {
@@ -18,9 +20,15 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/getArticle")
 	@ResponseBody
-	public Object getArticleForPrint(int id) {
+	public ResultData getArticle(int id) {
 
-		return articleService.getArticle(id);
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+		}
+
+		return ResultData.from("S-1", Ut.f("%s번 게시물입니다.", id), article);
 	}
 
 	@RequestMapping("/user/article/getArticles")
