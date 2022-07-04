@@ -55,4 +55,30 @@ public class UserMemberController {
 
 		return ResultData.newData(joinRd, member);
 	}
+
+	@RequestMapping("/user/member/doLogin")
+	@ResponseBody
+	public ResultData<Member> doLogin(String loginId, String loginPw) {
+
+		if (Ut.empty(loginId)) {
+			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(loginPw)) {
+			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
+		}
+
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null) {
+			return ResultData.from("F-3", "등록되지 않은 회원입니다.");
+		}
+
+		if (member.getLoginPw().equals(loginPw) == false) {
+			return ResultData.from("F-4", "잘못된 비밀번호입니다.");
+		}
+
+		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
+	}
+
 }
