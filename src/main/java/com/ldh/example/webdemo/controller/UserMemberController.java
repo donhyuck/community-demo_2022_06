@@ -68,7 +68,7 @@ public class UserMemberController {
 			isLogined = true;
 		}
 
-		if (isLogined) {
+		if (isLogined == true) {
 			return ResultData.from("F-5", "이미 로그인 중입니다.");
 		}
 
@@ -105,7 +105,7 @@ public class UserMemberController {
 			isLogined = true;
 		}
 
-		if (!isLogined) {
+		if (isLogined == false) {
 			return ResultData.from("S-1", "이미 로그아웃 되었습니다.");
 		}
 
