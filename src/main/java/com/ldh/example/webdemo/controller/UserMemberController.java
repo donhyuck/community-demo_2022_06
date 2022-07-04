@@ -1,5 +1,7 @@
 package com.ldh.example.webdemo.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +60,17 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
-	public ResultData<Member> doLogin(String loginId, String loginPw) {
+	public ResultData<Member> doLogin(HttpSession httpSession, String loginId, String loginPw) {
+
+		boolean isLogined = false;
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+		}
+
+		if (isLogined) {
+			return ResultData.from("F-5", "이미 로그인 중입니다.");
+		}
 
 		if (Ut.empty(loginId)) {
 			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
@@ -77,6 +89,8 @@ public class UserMemberController {
 		if (member.getLoginPw().equals(loginPw) == false) {
 			return ResultData.from("F-4", "잘못된 비밀번호입니다.");
 		}
+
+		httpSession.setAttribute("loginedMemberId", member.getId());
 
 		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
 	}
