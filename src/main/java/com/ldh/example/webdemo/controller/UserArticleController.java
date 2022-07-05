@@ -76,7 +76,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public ResultData<Integer> doModify(HttpSession httpSession, int id, String title, String body) {
+	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
 
 		boolean isLogined = false;
 		int loginedMemberId = 0;
@@ -96,13 +96,13 @@ public class UserArticleController {
 			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		ResultData actorCanModifyRd = articleService.actorCanModify(loginedMemberId, article);
+
+		if (actorCanModifyRd.isFail()) {
+			return actorCanModifyRd;
 		}
 
-		articleService.modifyArticle(id, title, body);
-
-		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), id);
+		return articleService.modifyArticle(id, title, body);
 	}
 
 	@RequestMapping("/user/article/doDelete")

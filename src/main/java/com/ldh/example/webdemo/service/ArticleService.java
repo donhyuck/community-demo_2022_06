@@ -39,13 +39,30 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public void modifyArticle(int id, String title, String body) {
+	public ResultData<Article> modifyArticle(int id, String title, String body) {
 
 		articleRepository.modifyArticle(id, title, body);
+
+		Article article = getArticle(id);
+
+		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), article);
 	}
 
 	public void deleteArticle(int id) {
 
 		articleRepository.deleteArticle(id);
+	}
+
+	public ResultData actorCanModify(int memberId, Article article) {
+
+		if (article == null) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", article.getId()));
+		}
+
+		if (article.getMemberId() != memberId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+
+		return ResultData.from("S-1", "수정가능합니다.");
 	}
 }
