@@ -30,7 +30,7 @@ public class UserArticleController {
 			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		return ResultData.from("S-1", Ut.f("%s번 게시물입니다.", id), article);
+		return ResultData.from("S-1", Ut.f("%s번 게시물입니다.", id), "article", article);
 	}
 
 	@RequestMapping("/user/article/getArticles")
@@ -39,7 +39,7 @@ public class UserArticleController {
 
 		List<Article> articles = articleService.getArticles();
 
-		return ResultData.from("S-1", "게시글 목록입니다.", articles);
+		return ResultData.from("S-1", "게시글 목록입니다.", "articles", articles);
 	}
 
 	@RequestMapping("/user/article/doAdd")
@@ -71,7 +71,7 @@ public class UserArticleController {
 
 		Article article = articleService.getArticle(id);
 
-		return ResultData.newData(writeArticleRd, article);
+		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
 	@RequestMapping("/user/article/doModify")
@@ -124,7 +124,7 @@ public class UserArticleController {
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id), id);
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		if (article.getMemberId() != loginedMemberId) {
@@ -133,6 +133,6 @@ public class UserArticleController {
 
 		articleService.deleteArticle(id);
 
-		return ResultData.from("S-1", Ut.f("%s번 게시물이 삭제되었습니다.", id), id);
+		return ResultData.from("S-1", Ut.f("%s번 게시물이 삭제되었습니다.", id), "id", id);
 	}
 }
