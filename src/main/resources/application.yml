@@ -8,3 +8,7 @@ spring:
      password: kor123414
 mybatis:
   type-aliases-package: com.ldh.example.webdemo.vo
+custom:
+  logging:
+    dir: log
+    level: debug   
