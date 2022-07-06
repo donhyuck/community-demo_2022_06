@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,13 +34,13 @@ public class UserArticleController {
 		return ResultData.from("S-1", Ut.f("%s번 게시물입니다.", id), "article", article);
 	}
 
-	@RequestMapping("/user/article/getArticles")
-	@ResponseBody
-	public ResultData<List<Article>> getArticles() {
+	@RequestMapping("/user/article/list")
+	public String showList(Model model) {
 
 		List<Article> articles = articleService.getArticles();
+		model.addAttribute("articles", articles);
 
-		return ResultData.from("S-1", "게시글 목록입니다.", "articles", articles);
+		return "user/article/list";
 	}
 
 	@RequestMapping("/user/article/doAdd")
