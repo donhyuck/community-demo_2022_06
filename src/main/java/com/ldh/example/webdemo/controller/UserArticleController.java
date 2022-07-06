@@ -26,10 +26,6 @@ public class UserArticleController {
 
 		Article article = articleService.getArticle(id);
 
-		if (article == null) {
-			return Ut.f("%s번 게시물을 찾을 수 없습니다.", id);
-		}
-
 		model.addAttribute("article", article);
 
 		return "user/article/detail";
