@@ -9,7 +9,20 @@
 </head>
 <body>
 	<h1>게시글 상세</h1>
-	<hr />
+
+	<header>
+		<a href="/">로고</a>
+
+		<ul>
+			<li>
+				<a href="/">홈</a>
+			</li>
+			<li>
+				<a href="/user/article/list">목록</a>
+			</li>
+		</ul>
+	</header>
+
 	<table border="1">
 		<thead>
 			<tr>
