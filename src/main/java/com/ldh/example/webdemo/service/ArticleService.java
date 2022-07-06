@@ -29,21 +29,21 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%s번 게시물이 등록되었습니다.", id), "id", id);
 	}
 
-	public Article getArticle(int id) {
+	public Article getForPrintArticle(int id) {
 
-		return articleRepository.getArticle(id);
+		return articleRepository.getForPrintArticle(id);
 	}
 
-	public List<Article> getArticles() {
+	public List<Article> getForPrintArticles() {
 
-		return articleRepository.getArticles();
+		return articleRepository.getForPrintArticles();
 	}
 
 	public ResultData<Article> modifyArticle(int id, String title, String body) {
 
 		articleRepository.modifyArticle(id, title, body);
 
-		Article article = getArticle(id);
+		Article article = getForPrintArticle(id);
 
 		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), "article", article);
 	}

@@ -8,7 +8,7 @@
 		<div class="table-box-type-1">
 			<table>
 				<colgroup>
-					<col width="50" />
+					<col width="60" />
 					<col width="150" />
 					<col width="150" />
 					<col width="150" />
@@ -29,7 +29,7 @@
 							<td>${ article.id }</td>
 							<td>${ article.regDate.substring(2,16) }</td>
 							<td>${ article.updateDate.substring(2,16) }</td>
-							<td>${ article.memberId }</td>
+							<td>${ article.extra__writerName }</td>
 							<td>
 								<a href="../article/detail?id=${ article.id }" class="hover:underline">${ article.title }</a>
 							</td>
