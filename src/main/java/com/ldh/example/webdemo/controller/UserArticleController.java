@@ -2,7 +2,7 @@ package com.ldh.example.webdemo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import com.ldh.example.webdemo.service.ArticleService;
 import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.ResultData;
+import com.ldh.example.webdemo.vo.Rq;
 
 @Controller
 public class UserArticleController {
@@ -22,18 +23,11 @@ public class UserArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping("/user/article/detail")
-	public String showDetail(HttpSession httpSession, Model model, int id) {
+	public String showDetail(HttpServletRequest req, Model model, int id) {
 
-		// 로그인 확인
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+		Rq rq = new Rq(req);
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-
-		Article article = articleService.getForPrintArticle(loginedMemberId, id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
 
@@ -41,18 +35,11 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/list")
-	public String showList(HttpSession httpSession, Model model) {
+	public String showList(HttpServletRequest req, Model model) {
 
-		// 로그인 확인
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+		Rq rq = new Rq(req);
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-
-		List<Article> articles = articleService.getForPrintArticles(loginedMemberId);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 
 		model.addAttribute("articles", articles);
 
@@ -61,18 +48,12 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doAdd(HttpSession httpSession, String title, String body) {
+	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
+
+		Rq rq = new Rq(req);
 
 		// 로그인 확인후 요청처리
-		boolean isLogined = false;
-		int loginedMemberId = 0;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 
@@ -85,39 +66,33 @@ public class UserArticleController {
 			return ResultData.from("F-2", "body(을)를 입력해주세요.");
 		}
 
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		int id = writeArticleRd.getData1();
 
-		Article article = articleService.getForPrintArticle(loginedMemberId, id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
+	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
+
+		Rq rq = new Rq(req);
 
 		// 로그인 확인후 요청처리
-		boolean isLogined = false;
-		int loginedMemberId = 0;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 
 		// 데이터와 권한 확인
-		Article article = articleService.getForPrintArticle(loginedMemberId, id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
 			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		ResultData actorCanModifyRd = articleService.actorCanModify(loginedMemberId, article);
+		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
 			return actorCanModifyRd;
@@ -128,29 +103,23 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpSession httpSession, int id) {
+	public String doDelete(HttpServletRequest req, int id) {
+
+		Rq rq = new Rq(req);
 
 		// 로그인 확인후 요청처리
-		boolean isLogined = false;
-		int loginedMemberId = 0;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
 		}
 
 		// 데이터와 권한 확인
-		Article article = articleService.getForPrintArticle(loginedMemberId, id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
 			ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		ResultData actorCanDeleteRd = articleService.actorCanDelete(loginedMemberId, article);
+		ResultData actorCanDeleteRd = articleService.actorCanDelete(rq.getLoginedMemberId(), article);
 
 		if (actorCanDeleteRd.isFail()) {
 			return Ut.jsHistoryBack(actorCanDeleteRd.getMsg());
