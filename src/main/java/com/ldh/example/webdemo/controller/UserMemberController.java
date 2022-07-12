@@ -23,6 +23,7 @@ public class UserMemberController {
 	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 
+		// 입력데이터 유효성 검사
 		if (Ut.empty(loginId)) {
 			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
 		}
@@ -47,6 +48,7 @@ public class UserMemberController {
 			return ResultData.from("F-6", "email(을)를 입력해주세요.");
 		}
 
+		// 회원가입 가능여부 검사
 		ResultData joinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		if (joinRd.isFail()) {
@@ -62,6 +64,7 @@ public class UserMemberController {
 	@ResponseBody
 	public ResultData<Member> doLogin(HttpSession httpSession, String loginId, String loginPw) {
 
+		// 로그인 확인
 		boolean isLogined = false;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
@@ -72,6 +75,7 @@ public class UserMemberController {
 			return ResultData.from("F-5", "이미 로그인 중입니다.");
 		}
 
+		// 입력데이터 유효성 검사
 		if (Ut.empty(loginId)) {
 			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
 		}
@@ -80,6 +84,7 @@ public class UserMemberController {
 			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
 		}
 
+		// 미등록 회원 제외, 비밀번호확인
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
@@ -99,6 +104,7 @@ public class UserMemberController {
 	@ResponseBody
 	public ResultData<Member> doLogout(HttpSession httpSession) {
 
+		// 로그아웃 확인
 		boolean isLogined = false;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {

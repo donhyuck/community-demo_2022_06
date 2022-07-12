@@ -35,6 +35,7 @@ public class UserArticleController {
 	public String showList(Model model) {
 
 		List<Article> articles = articleService.getForPrintArticles();
+
 		model.addAttribute("articles", articles);
 
 		return "user/article/list";
@@ -44,6 +45,7 @@ public class UserArticleController {
 	@ResponseBody
 	public ResultData<Article> doAdd(HttpSession httpSession, String title, String body) {
 
+		// 로그인 확인후 요청처리
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -56,6 +58,7 @@ public class UserArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 
+		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
 			return ResultData.from("F-1", "title(을)를 입력해주세요.");
 		}
@@ -76,6 +79,7 @@ public class UserArticleController {
 	@ResponseBody
 	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
 
+		// 로그인 확인후 요청처리
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -88,6 +92,7 @@ public class UserArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 
+		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
@@ -107,6 +112,7 @@ public class UserArticleController {
 	@ResponseBody
 	public ResultData<Integer> doDelete(HttpSession httpSession, int id) {
 
+		// 로그인 확인후 요청처리
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -119,6 +125,7 @@ public class UserArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 
+		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
