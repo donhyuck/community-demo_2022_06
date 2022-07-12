@@ -29,21 +29,42 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%s번 게시물이 등록되었습니다.", id), "id", id);
 	}
 
-	public Article getForPrintArticle(int id) {
+	public Article getForPrintArticle(int actorId, int id) {
 
-		return articleRepository.getForPrintArticle(id);
+		Article article = articleRepository.getForPrintArticle(id);
+
+		updateForPrintData(actorId, article);
+
+		return article;
 	}
 
-	public List<Article> getForPrintArticles() {
+	public List<Article> getForPrintArticles(int actorId) {
 
-		return articleRepository.getForPrintArticles();
+		List<Article> articles = articleRepository.getForPrintArticles();
+
+		for (Article article : articles) {
+			updateForPrintData(actorId, article);
+		}
+
+		return articles;
+	}
+
+	private void updateForPrintData(int actorId, Article article) {
+
+		if (article == null) {
+			return;
+		}
+
+		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
+		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
+
 	}
 
 	public ResultData<Article> modifyArticle(int id, String title, String body) {
 
 		articleRepository.modifyArticle(id, title, body);
 
-		Article article = getForPrintArticle(id);
+		Article article = getForPrintArticle(0, id);
 
 		return ResultData.from("S-1", Ut.f("%s번 게시물이 수정되었습니다.", id), "article", article);
 	}
@@ -53,16 +74,29 @@ public class ArticleService {
 		articleRepository.deleteArticle(id);
 	}
 
-	public ResultData actorCanModify(int memberId, Article article) {
+	public ResultData actorCanModify(int actorId, Article article) {
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", article.getId()));
 		}
 
-		if (article.getMemberId() != memberId) {
+		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
 		}
 
 		return ResultData.from("S-1", "수정가능합니다.");
+	}
+
+	public ResultData actorCanDelete(int actorId, Article article) {
+
+		if (article == null) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", article.getId()));
+		}
+
+		if (article.getMemberId() != actorId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+
+		return ResultData.from("S-1", "삭제가능합니다.");
 	}
 }

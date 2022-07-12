@@ -22,9 +22,18 @@ public class UserArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping("/user/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpSession httpSession, Model model, int id) {
 
-		Article article = articleService.getForPrintArticle(id);
+		// 로그인 확인
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		model.addAttribute("article", article);
 
@@ -32,16 +41,25 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/list")
-	public String showList(Model model) {
+	public String showList(HttpSession httpSession, Model model) {
 
-		List<Article> articles = articleService.getForPrintArticles();
+		// 로그인 확인
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+
+		List<Article> articles = articleService.getForPrintArticles(loginedMemberId);
 
 		model.addAttribute("articles", articles);
 
 		return "user/article/list";
 	}
 
-	@RequestMapping("/user/article/doAdd")
+	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
 	public ResultData<Article> doAdd(HttpSession httpSession, String title, String body) {
 
@@ -70,7 +88,7 @@ public class UserArticleController {
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
 		int id = writeArticleRd.getData1();
 
-		Article article = articleService.getForPrintArticle(id);
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
@@ -93,7 +111,7 @@ public class UserArticleController {
 		}
 
 		// 데이터와 권한 확인
-		Article article = articleService.getForPrintArticle(id);
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		if (article == null) {
 			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
@@ -126,14 +144,16 @@ public class UserArticleController {
 		}
 
 		// 데이터와 권한 확인
-		Article article = articleService.getForPrintArticle(id);
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		ResultData actorCanDeleteRd = articleService.actorCanDelete(loginedMemberId, article);
+
+		if (actorCanDeleteRd.isFail()) {
+			return actorCanDeleteRd;
 		}
 
 		articleService.deleteArticle(id);
