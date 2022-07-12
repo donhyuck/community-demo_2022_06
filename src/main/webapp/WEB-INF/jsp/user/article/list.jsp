@@ -31,7 +31,7 @@
 							<td>${ article.updateDate.substring(2,16) }</td>
 							<td>${ article.extra__writerName }</td>
 							<td>
-								<a href="../article/detail?id=${ article.id }" class="hover:underline">${ article.title }</a>
+								<a href="../article/detail?id=${ article.id }" class="btn-text-link">${ article.title }</a>
 							</td>
 						</tr>
 					</c:forEach>
