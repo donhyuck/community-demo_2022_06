@@ -102,4 +102,8 @@ UPDATE article
 SET memberId = 2
 WHERE memberId = 0;
 
+UPDATE article
+SET memberId = 3
+WHERE id = 3;
+
 SELECT * FROM article;
