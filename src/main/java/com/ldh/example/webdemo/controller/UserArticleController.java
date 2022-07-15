@@ -52,11 +52,6 @@ public class UserArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		// 로그인 확인후 요청처리
-		if (rq.isLogined() == false) {
-			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
-		}
-
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
 			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
@@ -80,11 +75,6 @@ public class UserArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		// 로그인 확인후 요청처리
-		if (rq.isLogined() == false) {
-			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
-		}
-
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
 			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
@@ -107,6 +97,8 @@ public class UserArticleController {
 			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 
+		articleService.modifyArticle(id, title, body);
+
 		return Ut.jsReplace(Ut.f("%s번 게시물이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
@@ -115,11 +107,6 @@ public class UserArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-
-		// 로그인 확인후 요청처리
-		if (rq.isLogined() == false) {
-			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
-		}
 
 		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
