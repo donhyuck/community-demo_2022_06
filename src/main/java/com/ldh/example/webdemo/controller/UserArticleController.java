@@ -48,22 +48,22 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		// 로그인 확인후 요청처리
 		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", "로그인 후 이용해주세요.");
+			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
 		}
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
-			return ResultData.from("F-1", "title(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(body)) {
-			return ResultData.from("F-2", "body(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
@@ -71,34 +71,43 @@ public class UserArticleController {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
-		return ResultData.newData(writeArticleRd, "article", article);
+		return Ut.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		// 로그인 확인후 요청처리
 		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", "로그인 후 이용해주세요.");
+			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
+		}
+
+		// 입력데이터 유효성 검사
+		if (Ut.empty(title)) {
+			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(body)) {
+			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
 		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return ResultData.from("F-A", Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+			return Ut.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
-			return actorCanModifyRd;
+			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 
-		return articleService.modifyArticle(id, title, body);
+		return Ut.jsReplace(Ut.f("%s번 게시물이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/user/article/doDelete")
