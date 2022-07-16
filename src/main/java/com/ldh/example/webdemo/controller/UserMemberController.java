@@ -62,7 +62,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
-	public ResultData<Member> doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
 
 		// 로그인 확인
 		boolean isLogined = false;
@@ -72,32 +72,32 @@ public class UserMemberController {
 		}
 
 		if (isLogined == true) {
-			return ResultData.from("F-5", "이미 로그인 중입니다.");
+			return Ut.jsHistoryBack("이미 로그인 중입니다.");
 		}
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(loginId)) {
-			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("아이디(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(loginPw)) {
-			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("비밀번호(을)를 입력해주세요.");
 		}
 
 		// 미등록 회원 제외, 비밀번호확인
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
-			return ResultData.from("F-3", "등록되지 않은 회원입니다.");
+			return Ut.jsHistoryBack("등록되지 않은 회원입니다.");
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", "잘못된 비밀번호입니다.");
+			return Ut.jsHistoryBack("잘못된 비밀번호입니다.");
 		}
 
 		httpSession.setAttribute("loginedMemberId", member.getId());
 
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
+		return Ut.jsHistoryBack(Ut.f("%s님 환영합니다.", member.getNickname()));
 	}
 
 	@RequestMapping("/user/member/doLogout")
