@@ -60,6 +60,12 @@ public class UserMemberController {
 		return ResultData.newData(joinRd, "member", member);
 	}
 
+	@RequestMapping("/user/member/login")
+	public String showLogin(HttpSession httpSession) {
+		
+		return "user/member/login";
+	}
+
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {

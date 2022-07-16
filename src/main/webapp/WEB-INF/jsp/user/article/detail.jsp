@@ -39,7 +39,7 @@
 			</table>
 		</div>
 
-		<div class="btns">
+		<div class="btns mt-3">
 			<button type="button" class="btn-text-link" onclick="history.back();">뒤로가기</button>
 			<a class="btn-text-link" href="../article/modify?id=${ article.id }">게시물 수정</a>
 			<c:if test="${ article.extra__actorCanDelete }">
