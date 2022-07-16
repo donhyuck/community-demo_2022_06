@@ -18,46 +18,52 @@ public class UserMemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@RequestMapping("/user/member/join")
+	public String showJoin(HttpSession httpSession) {
+
+		return "user/member/join";
+	}
+
 	@RequestMapping("/user/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(loginId)) {
-			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("아이디(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(loginPw)) {
-			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("비밀번호(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(name)) {
-			return ResultData.from("F-3", "name(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("이름(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(nickname)) {
-			return ResultData.from("F-4", "nickname(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("별명(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(cellphoneNo)) {
-			return ResultData.from("F-5", "cellphoneNo(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("연락처(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(email)) {
-			return ResultData.from("F-6", "email(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("이메일(을)를 입력해주세요.");
 		}
 
 		// 회원가입 가능여부 검사
 		ResultData joinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		if (joinRd.isFail()) {
-			return (ResultData) joinRd;
+			return Ut.jsHistoryBack(joinRd.getMsg());
 		}
 
 		Member member = memberService.getMemberById((int) joinRd.getData1());
 
-		return ResultData.newData(joinRd, "member", member);
+		return Ut.jsReplace(Ut.f("%s님 회원가입이 완료되었습니다.", member.getName()), "/");
 	}
 
 	@RequestMapping("/user/member/login")
