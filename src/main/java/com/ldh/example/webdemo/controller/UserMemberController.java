@@ -62,7 +62,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/login")
 	public String showLogin(HttpSession httpSession) {
-		
+
 		return "user/member/login";
 	}
 
@@ -103,12 +103,12 @@ public class UserMemberController {
 
 		httpSession.setAttribute("loginedMemberId", member.getId());
 
-		return Ut.jsHistoryBack(Ut.f("%s님 환영합니다.", member.getNickname()));
+		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
 
 	@RequestMapping("/user/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogout(HttpSession httpSession) {
+	public String doLogout(HttpSession httpSession) {
 
 		// 로그아웃 확인
 		boolean isLogined = false;
@@ -118,12 +118,12 @@ public class UserMemberController {
 		}
 
 		if (isLogined == false) {
-			return ResultData.from("S-1", "이미 로그아웃 되었습니다.");
+			return Ut.jsHistoryBack("이미 로그아웃 되었습니다.");
 		}
 
 		httpSession.removeAttribute("loginedMemberId");
 
-		return ResultData.from("S-2", "로그아웃 처리되었습니다.");
+		return Ut.jsReplace("로그아웃 처리되었습니다.", "/");
 	}
 
 }

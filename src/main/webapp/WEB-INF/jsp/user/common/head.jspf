@@ -43,11 +43,20 @@
 						<span>목록</span>
 					</a>
 				</li>
-				<li>
-					<a href="/user/member/login" class="flex items-center h-full px-3 hover:underline">
-						<span>로그인</span>
-					</a>
-				</li>
+				<c:if test="${ rq.isLogined() == false }">
+					<li>
+						<a href="/user/member/login" class="flex items-center h-full px-3 hover:underline">
+							<span>로그인</span>
+						</a>
+					</li>
+				</c:if>
+				<c:if test="${ rq.isLogined() == true }">
+					<li>
+						<a href="/user/member/doLogout" class="flex items-center h-full px-3 hover:underline">
+							<span>로그아웃</span>
+						</a>
+					</li>
+				</c:if>
 			</ul>
 		</div>
 	</header>
