@@ -1,5 +1,6 @@
 package com.ldh.example.webdemo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.ldh.example.webdemo.service.MemberService;
 import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Member;
 import com.ldh.example.webdemo.vo.ResultData;
+import com.ldh.example.webdemo.vo.Rq;
 
 @Controller
 public class UserMemberController {
@@ -67,23 +69,19 @@ public class UserMemberController {
 	}
 
 	@RequestMapping("/user/member/login")
-	public String showLogin(HttpSession httpSession) {
+	public String showLogin() {
 
 		return "user/member/login";
 	}
 
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
 
 		// 로그인 확인
-		boolean isLogined = false;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-		}
-
-		if (isLogined == true) {
+		if (rq.isLogined() == true) {
 			return Ut.jsHistoryBack("이미 로그인 중입니다.");
 		}
 
@@ -107,7 +105,7 @@ public class UserMemberController {
 			return Ut.jsHistoryBack("잘못된 비밀번호입니다.");
 		}
 
-		httpSession.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 
 		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
