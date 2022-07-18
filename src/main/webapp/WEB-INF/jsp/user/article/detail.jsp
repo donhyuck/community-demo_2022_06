@@ -17,11 +17,15 @@
 					</tr>
 					<tr>
 						<th>등록날짜</th>
-						<td>${ article.regDate.substring(2, 16) }</td>
+						<td>
+							<div>${ article.regDateForPrint }</div>
+						</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${ article.updateDate.substring(2, 16) }</td>
+						<td>
+							<div>${ article.updateDateForPrint }</div>
+						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
