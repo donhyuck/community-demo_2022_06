@@ -37,21 +37,27 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea name="body" class="w-full" rows="10">${ article.body }</textarea>
+							<textarea name="body" class="w-full textarea textarea-bordered" rows="10">${ article.body }</textarea>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div class="btns mt-3">
-				<button type="button" class="btn-text-link" onclick="history.back();">뒤로가기</button>
-				<button type="submit" class="btn-text-link">수정하기</button>
-				<c:if test="${ article.extra__actorCanDelete }">
-					<a class="btn-text-link" href="../article/doDelete?id=${ article.id }"
-						onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">게시물 삭제</a>
-				</c:if>
+				<button type="button" class="btn btn-link" onclick="history.back();">뒤로가기</button>
+				<button type="submit" class="btn btn-link">수정하기</button>
 			</div>
 		</form>
+
+		<div class="btns mt-3">
+			<c:if test="${ article.extra__actorCanModify }">
+				<a class="btn btn-link" href="../article/modify?id=${article.id}">게시물 수정</a>
+			</c:if>
+			<c:if test="${ article.extra__actorCanDelete }">
+				<a class="btn btn-link" href="../article/doDelete?id=${ article.id }"
+					onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">게시물 삭제</a>
+			</c:if>
+		</div>
 	</div>
 </section>
 
