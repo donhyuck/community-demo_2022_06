@@ -69,6 +69,29 @@ public class UserArticleController {
 		return Ut.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
+	@RequestMapping("/user/article/modify")
+	public String showModify(HttpServletRequest req, Model model, int id) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		// 데이터와 권한 확인
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+
+		if (article == null) {
+			return Ut.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+		}
+
+		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
+
+		if (actorCanModifyRd.isFail()) {
+			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
+		}
+
+		model.addAttribute("article", article);
+
+		return "user/article/modify";
+	}
+
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
