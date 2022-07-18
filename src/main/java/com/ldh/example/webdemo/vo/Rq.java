@@ -73,4 +73,9 @@ public class Rq {
 
 		session.setAttribute("loginedMemberId", member.getId());
 	}
+
+	public void logout() {
+		
+		session.removeAttribute("loginedMemberId");
+	}
 }
