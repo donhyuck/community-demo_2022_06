@@ -78,13 +78,13 @@ public class UserArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return Ut.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+			return rq.historyBackOnView(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
-			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
+			return rq.historyBackOnView(actorCanModifyRd.getMsg());
 		}
 
 		model.addAttribute("article", article);
