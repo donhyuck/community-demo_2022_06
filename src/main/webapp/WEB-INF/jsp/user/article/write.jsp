@@ -13,7 +13,7 @@
 				<tbody>
 					<tr>
 						<th>작성자</th>
-						<td>${ rq.loginedMemberId }</td>
+						<td>${ rq.loginedMember.nickname }</td>
 					</tr>
 					<tr>
 						<th>제목</th>
