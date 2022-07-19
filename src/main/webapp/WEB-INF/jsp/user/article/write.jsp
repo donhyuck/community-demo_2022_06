@@ -18,7 +18,7 @@
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" name="title" class="w-96" placeholder="제목을 입력하세요." />
+							<input type="text" name="title" class="w-96 input input-bordered w-full max-w-xs" placeholder="제목을 입력하세요." />
 						</td>
 					</tr>
 					<tr>
@@ -31,8 +31,8 @@
 			</table>
 
 			<div class="btns mt-3">
-				<button type="button" class="btn btn-link" onclick="history.back();">뒤로가기</button>
-				<button type="submit" class="btn btn-link">등록하기</button>
+				<button type="button" class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
+				<button type="submit" class="btn btn-outline btn-primary btn-sm">등록하기</button>
 			</div>
 		</form>
 

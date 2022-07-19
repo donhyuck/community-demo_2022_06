@@ -14,7 +14,9 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${ article.id }</td>
+						<td>
+							<div class="badge badge-primary">${ article.id }</div>
+						</td>
 					</tr>
 					<tr>
 						<th>등록날짜</th>
@@ -35,7 +37,8 @@
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" name="title" value="${ article.title }" class="w-96" placeholder="수정할 제목을 입력하세요." />
+							<input type="text" name="title" value="${ article.title }" class="w-96 input input-bordered w-full max-w-xs"
+								placeholder="수정할 제목을 입력하세요." />
 						</td>
 					</tr>
 					<tr>
@@ -48,20 +51,10 @@
 			</table>
 
 			<div class="btns mt-3">
-				<button type="button" class="btn btn-link" onclick="history.back();">뒤로가기</button>
-				<button type="submit" class="btn btn-link">수정하기</button>
+				<button type="button" class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
+				<button type="submit" class="btn btn-outline btn-primary btn-sm">수정하기</button>
 			</div>
 		</form>
-
-		<div class="btns mt-3">
-			<c:if test="${ article.extra__actorCanModify }">
-				<a class="btn btn-link" href="../article/modify?id=${article.id}">게시물 수정</a>
-			</c:if>
-			<c:if test="${ article.extra__actorCanDelete }">
-				<a class="btn btn-link" href="../article/doDelete?id=${ article.id }"
-					onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">게시물 삭제</a>
-			</c:if>
-		</div>
 	</div>
 </section>
 

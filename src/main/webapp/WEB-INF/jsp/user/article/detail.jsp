@@ -44,12 +44,12 @@
 		</div>
 
 		<div class="btns mt-3">
-			<button type="button" class="btn btn-link" onclick="history.back();">뒤로가기</button>
+			<button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 			<c:if test="${ article.extra__actorCanModify }">
-				<a class="btn btn-link" href="../article/modify?id=${article.id}">게시물 수정</a>
+				<a class="btn btn-primary" href="../article/modify?id=${article.id}">게시물 수정</a>
 			</c:if>
 			<c:if test="${ article.extra__actorCanDelete }">
-				<a class="btn btn-link" href="../article/doDelete?id=${ article.id }"
+				<a class="btn btn-secondary" href="../article/doDelete?id=${ article.id }"
 					onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">게시물 삭제</a>
 			</c:if>
 		</div>

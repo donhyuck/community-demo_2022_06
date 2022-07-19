@@ -14,21 +14,22 @@
 					<tr>
 						<th>로그인 아이디</th>
 						<td>
-							<input name="loginId" type="text" class="w-96" placeholder="아이디를 입력해주세요." />
+							<input name="loginId" type="text" class="w-96 input input-bordered w-full max-w-xs" placeholder="아이디를 입력해주세요." />
 						</td>
 					</tr>
 					<tr>
 						<th>로그인 비밀번호</th>
 						<td>
-							<input name="loginPw" type="password" class="w-96" placeholder="비밀번호를 입력해주세요." />
+							<input name="loginPw" type="password" class=" w-96 input input-bordered w-full max-w-xs"
+								placeholder="비밀번호를 입력해주세요." />
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div class="btns mt-3">
-				<button type="button" class="btn-text-link" onclick="history.back();">뒤로가기</button>
-				<button type="submit" class="btn-text-link">로그인</button>
+				<button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
+				<button type="submit" class="btn btn-outline btn-primary">로그인</button>
 			</div>
 		</form>
 	</div>
