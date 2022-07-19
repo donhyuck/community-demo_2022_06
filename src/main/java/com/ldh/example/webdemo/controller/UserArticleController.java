@@ -60,11 +60,11 @@ public class UserArticleController {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
-			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
+			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(body)) {
-			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
+			return rq.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
 		int id = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
@@ -73,7 +73,7 @@ public class UserArticleController {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
-		return Ut.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), replaceUri);
+		return rq.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), replaceUri);
 	}
 
 	@RequestMapping("/user/article/modify")
@@ -107,29 +107,29 @@ public class UserArticleController {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
-			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
+			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(body)) {
-			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
+			return rq.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
 		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return Ut.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
-			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
+			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 
 		articleService.modifyArticle(id, title, body);
 
-		return Ut.jsReplace(Ut.f("%s번 게시물이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
+		return rq.jsReplace(Ut.f("%s번 게시물이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/user/article/doDelete")
@@ -142,17 +142,17 @@ public class UserArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return Ut.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
 		}
 
 		ResultData actorCanDeleteRd = articleService.actorCanDelete(rq.getLoginedMemberId(), article);
 
 		if (actorCanDeleteRd.isFail()) {
-			return Ut.jsHistoryBack(actorCanDeleteRd.getMsg());
+			return rq.jsHistoryBack(actorCanDeleteRd.getMsg());
 		}
 
 		articleService.deleteArticle(id);
 
-		return Ut.jsReplace(Ut.f("%s번 게시물이 삭제되었습니다.", id), "../article/list");
+		return rq.jsReplace(Ut.f("%s번 게시물이 삭제되었습니다.", id), "../article/list");
 	}
 }

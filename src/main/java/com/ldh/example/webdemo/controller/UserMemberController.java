@@ -82,32 +82,32 @@ public class UserMemberController {
 
 		// 로그인 확인
 		if (rq.isLogined() == true) {
-			return Ut.jsHistoryBack("이미 로그인 중입니다.");
+			return rq.jsHistoryBack("이미 로그인 중입니다.");
 		}
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(loginId)) {
-			return Ut.jsHistoryBack("아이디(을)를 입력해주세요.");
+			return rq.jsHistoryBack("아이디(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(loginPw)) {
-			return Ut.jsHistoryBack("비밀번호(을)를 입력해주세요.");
+			return rq.jsHistoryBack("비밀번호(을)를 입력해주세요.");
 		}
 
 		// 미등록 회원 제외, 비밀번호확인
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
-			return Ut.jsHistoryBack("등록되지 않은 회원입니다.");
+			return rq.jsHistoryBack("등록되지 않은 회원입니다.");
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return Ut.jsHistoryBack("잘못된 비밀번호입니다.");
+			return rq.jsHistoryBack("잘못된 비밀번호입니다.");
 		}
 
 		rq.login(member);
 
-		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
+		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
 
 	@RequestMapping("/user/member/doLogout")
@@ -118,12 +118,12 @@ public class UserMemberController {
 
 		// 로그아웃 확인
 		if (rq.isLogined() == false) {
-			return Ut.jsHistoryBack("이미 로그아웃 되었습니다.");
+			return rq.jsHistoryBack("이미 로그아웃 되었습니다.");
 		}
 
 		rq.logout();
 
-		return Ut.jsReplace("로그아웃 처리되었습니다.", "/");
+		return rq.jsReplace("로그아웃 처리되었습니다.", "/");
 	}
 
 }
