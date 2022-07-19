@@ -54,7 +54,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -67,12 +67,13 @@ public class UserArticleController {
 			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
-		int id = writeArticleRd.getData1();
+		int id = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 
-		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		if (Ut.empty(replaceUri)) {
+			replaceUri = Ut.f("../article/detail?id=%d", id);
+		}
 
-		return Ut.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), Ut.f("../article/detail?id=%d", id));
+		return Ut.jsReplace(Ut.f("%s번 게시물이 등록되었습니다.", id), replaceUri);
 	}
 
 	@RequestMapping("/user/article/modify")

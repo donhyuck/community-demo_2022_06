@@ -20,13 +20,13 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData<Integer> writeArticle(int memberId, String title, String body) {
+	public int writeArticle(int memberId, String title, String body) {
 
 		articleRepository.writeArticle(memberId, title, body);
 
 		int id = articleRepository.getLastInsertId();
 
-		return ResultData.from("S-1", Ut.f("%s번 게시물이 등록되었습니다.", id), "id", id);
+		return id;
 	}
 
 	public Article getForPrintArticle(int actorId, int id) {
