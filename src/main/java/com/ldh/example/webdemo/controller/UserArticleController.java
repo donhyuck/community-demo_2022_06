@@ -13,6 +13,7 @@ import com.ldh.example.webdemo.service.ArticleService;
 import com.ldh.example.webdemo.service.BoardService;
 import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Article;
+import com.ldh.example.webdemo.vo.Board;
 import com.ldh.example.webdemo.vo.ResultData;
 import com.ldh.example.webdemo.vo.Rq;
 
@@ -40,12 +41,19 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
+		Board board = boardService.getBoardById(boardId);
+
+		if (board == null) {
+			return rq.historyBackOnView(Ut.f("%d번 게시판은 등록되지 않았습니다.", boardId));
+		}
+
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "user/article/list";
