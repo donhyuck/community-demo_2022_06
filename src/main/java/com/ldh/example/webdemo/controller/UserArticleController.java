@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.ArticleService;
+import com.ldh.example.webdemo.service.BoardService;
 import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.ResultData;
@@ -19,8 +19,13 @@ import com.ldh.example.webdemo.vo.Rq;
 @Controller
 public class UserArticleController {
 
-	@Autowired
 	private ArticleService articleService;
+	private BoardService boardService;
+
+	public UserArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService = articleService;
+		this.boardService = boardService;
+	}
 
 	@RequestMapping("/user/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
