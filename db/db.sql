@@ -62,8 +62,8 @@ updateDate = NOW(),
 loginId = 'admin',
 loginPw = 'admin',
 authLevel = 7,
-`name` = '관리자',
-nickname = '관리자별명',
+`name` = 'Admin',
+nickname = '관리자',
 cellphoneNo = '01011111110',
 email = 'admin@test.com';
 
@@ -73,7 +73,7 @@ updateDate = NOW(),
 loginId = 'test1',
 loginPw = 'test1',
 `name` = 'test1',
-nickname = 'test1',
+nickname = '테스터1',
 cellphoneNo = '01011111111',
 email = 'test1@test.com';
 
@@ -84,7 +84,7 @@ updateDate = NOW(),
 loginId = 'test2',
 loginPw = 'test2',
 `name` = 'test2',
-nickname = 'test2',
+nickname = '테스터2',
 cellphoneNo = '01011111112',
 email = 'test2@test.com';
 
@@ -142,10 +142,19 @@ UPDATE article
 SET boardId = 1
 WHERE id IN(1, 2);
 
-# 2번 게시물을 자유게시판 게시물로 지정
+# 3번 게시물을 자유게시판 게시물로 지정
 UPDATE article
 SET boardId = 2
 WHERE id IN(3);
 
-SELECT * FROM board WHERE id = 1;
-SELECT * FROM board WHERE id = 2; 
+SELECT * FROM board;
+
+# 게시물 개수 늘리기
+INSERT INTO article
+(
+	regDate, updateDate, memberId, boardId, title, `body`
+)
+SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, CONCAT('제목_', RAND()), CONCAT('제목_', RAND())
+FROM article;
+
+SELECT COUNT(*) FROM article;
