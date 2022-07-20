@@ -26,8 +26,10 @@
 		<if test="boardId != 0">
 			AND A.boardId = #{boardId}
 		</if>
-		ORDER BY
-		A.id DESC
+		ORDER BY A.id DESC
+		<if test="limitStart != -1">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
 	</select>
 
 	<insert id="writeArticle">
