@@ -1,9 +1,5 @@
 package com.ldh.example.webdemo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,11 +13,16 @@ import com.ldh.example.webdemo.vo.Rq;
 @Controller
 public class UserMemberController {
 
-	@Autowired
 	private MemberService memberService;
+	private Rq rq;
+
+	public UserMemberController(MemberService memberService, Rq rq) {
+		this.memberService = memberService;
+		this.rq = rq;
+	}
 
 	@RequestMapping("/user/member/join")
-	public String showJoin(HttpSession httpSession) {
+	public String showJoin() {
 
 		return "user/member/join";
 	}
@@ -76,9 +77,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogin(String loginId, String loginPw) {
 
 		// 로그인 확인
 		if (rq.isLogined() == true) {
@@ -112,9 +111,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout() {
 
 		// 로그아웃 확인
 		if (rq.isLogined() == false) {

@@ -2,9 +2,6 @@ package com.ldh.example.webdemo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +20,16 @@ public class UserArticleController {
 
 	private ArticleService articleService;
 	private BoardService boardService;
+	private Rq rq;
 
-	public UserArticleController(ArticleService articleService, BoardService boardService) {
+	public UserArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.rq = rq;
 	}
 
 	@RequestMapping("/user/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -42,16 +39,16 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/list")
-	public String showList(HttpServletRequest req, Model model, int boardId) {
+	public String showList(Model model, int boardId) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-
+		// 게시판 정보 가져오기
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
 			return rq.historyBackOnView(Ut.f("%d번 게시판은 등록되지 않았습니다.", boardId));
 		}
 
+		// 게시판에 해당하는 게시글 정보 묶음 가져오기
 		int articlesCount = articleService.getArticlesCount(boardId);
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
 
@@ -63,16 +60,14 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/write")
-	public String showWrite(HttpServletRequest req, Model model) {
+	public String showWrite(Model model) {
 
 		return "user/article/write";
 	}
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, int boardId, String title, String body, String replaceUri) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doWrite(int boardId, String title, String body, String replaceUri) {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
@@ -93,9 +88,7 @@ public class UserArticleController {
 	}
 
 	@RequestMapping("/user/article/modify")
-	public String showModify(HttpServletRequest req, Model model, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showModify(Model model, int id) {
 
 		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
@@ -117,9 +110,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doModify(int id, String title, String body) {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
@@ -150,9 +141,7 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpServletRequest req, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doDelete(int id) {
 
 		// 데이터와 권한 확인
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
