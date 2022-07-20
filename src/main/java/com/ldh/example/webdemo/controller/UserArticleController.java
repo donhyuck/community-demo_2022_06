@@ -51,7 +51,7 @@ public class UserArticleController {
 			return rq.historyBackOnView(Ut.f("%d번 게시판은 등록되지 않았습니다.", boardId));
 		}
 
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
 
 		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
