@@ -29,61 +29,74 @@
 
 	<header>
 		<div class="flex container h-20 mx-auto">
-			<a href="/" class="flex items-center px-3">
-				<span>로고</span>
-			</a>
+			<div class="navbar bg-base-100">
+			
+				<div class="flex-1">
+					<a href="/">로고</a>
+				</div>
 
-			<div class="flex-grow"></div>
-
-			<ul class="flex">
-				<li>
-					<a href="/" class="flex items-center h-full px-3 hover:underline">
-						<span>홈</span>
-					</a>
-				</li>
-				<li>
-					<a href="/user/article/list?boardId=1" class="flex items-center h-full px-3 hover:underline">
-						<span>공지사항</span>
-					</a>
-				</li>
-				<li>
-					<a href="/user/article/list?boardId=2" class="flex items-center h-full px-3 hover:underline">
-						<span>자유 게시판</span>
-					</a>
-				</li>
-				<li>
-					<a href="/user/article/write" class="flex items-center h-full px-3 hover:underline">
-						<span>글작성</span>
-					</a>
-				</li>
-				<c:if test="${ rq.isLogined() == false }">
-					<li>
-						<a href="/user/member/join" class="flex items-center h-full px-3 hover:underline">
-							<span>회원가입</span>
-						</a>
-					</li>
-				</c:if>
-				<c:if test="${ rq.isLogined() == false }">
-					<li>
-						<a href="/user/member/login" class="flex items-center h-full px-3 hover:underline">
-							<span>로그인</span>
-						</a>
-					</li>
-				</c:if>
-				<c:if test="${ rq.isLogined() == true }">
-					<li>
-						<a href="/user/member/doLogout" class="flex items-center h-full px-3 hover:underline">
-							<span>로그아웃</span>
-						</a>
-					</li>
-				</c:if>
-			</ul>
+				<div class="flex-none">
+					<ul class="menu menu-horizontal p-0">
+						<li>
+							<a href="/">
+								<span>홈</span>
+							</a>
+						</li>
+						<li tabindex="0">
+							<a>
+								게시판
+								<svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+							<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+							</a>
+							<ul class="p-2 bg-base-100 ring-gray-200 ring-1">
+								<li>
+									<a href="/user/article/list?boardId=1">
+										<span>공지사항</span>
+									</a>
+								</li>
+								<li>
+									<a href="/user/article/list?boardId=2">
+										<span>자유</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/user/article/write">
+								<span>글작성</span>
+							</a>
+						</li>
+						<c:if test="${ rq.isLogined() == false }">
+							<li>
+								<a href="/user/member/join">
+									<span>회원가입</span>
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${ rq.isLogined() == false }">
+							<li>
+								<a href="/user/member/login">
+									<span>로그인</span>
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${ rq.isLogined() == true }">
+							<li>
+								<a href="/user/member/doLogout">
+									<span>로그아웃</span>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+				
+			</div>
 		</div>
 	</header>
 
 	<section class="mt-5">
 		<div class="container mx-auto px-3">
-			<h1>${ pageTitle } 페이지</h1>
+			<h1>${ pageTitle }페이지</h1>
 		</div>
 	</section>
 	<main>
