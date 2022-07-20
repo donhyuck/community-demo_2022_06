@@ -2,12 +2,8 @@ package com.ldh.example.webdemo.repository;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import com.ldh.example.webdemo.vo.Article;
 
@@ -25,4 +21,6 @@ public interface ArticleRepository {
 	public void deleteArticle(@Param("id") int id);
 
 	public int getLastInsertId();
+
+	public int getArticlesCount(@Param("boardId") int boardId);
 }
