@@ -70,20 +70,20 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
+	public String doWrite(HttpServletRequest req, int boardId, String title, String body, String replaceUri) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
-			return rq.jsHistoryBack("title(을)를 입력해주세요.");
+			return rq.jsHistoryBack("제목(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(body)) {
-			return rq.jsHistoryBack("body(을)를 입력해주세요.");
+			return rq.jsHistoryBack("내용(을)를 입력해주세요.");
 		}
 
-		int id = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		int id = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 
 		if (Ut.empty(replaceUri)) {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
