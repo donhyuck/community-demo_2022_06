@@ -46,22 +46,25 @@
 				<c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
 				<c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
 
+				<!-- 앞으로 이동 -->
 				<c:if test="${ startPage > 1 }">
-					<a href="?page=1" class="btn btn-sm">《</a>
+					<a href="?page=1&boardId=${ boardId }" class="btn btn-sm">《</a>
 				</c:if>
 				<c:if test="${ page > 1 }">
-					<a href="?page=${ page-1 }" class="btn btn-sm">〈</a>
+					<a href="?page=${ page-1 }&boardId=${ boardId }" class="btn btn-sm">〈</a>
 				</c:if>
 
+				<!-- 전체이동 -->
 				<c:forEach begin="${ startPage }" end="${ endPage }" var="i">
-					<a href="?page=${ i }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
+					<a href="?page=${ i }&boardId=${ boardId }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
 				</c:forEach>
 
+				<!-- 끝으로 이동 -->
 				<c:if test="${ page < pagesCount }">
-					<a href="?page=${ page+1 }" class="btn btn-sm">〉</a>
+					<a href="?page=${ page+1 }&boardId=${ boardId }" class="btn btn-sm">〉</a>
 				</c:if>
 				<c:if test="${ endPage < pagesCount }">
-					<a href="?page=${ pagesCount }" class="btn btn-sm">${ pagesCount }</a>
+					<a href="?page=${ pagesCount }&boardId=${ boardId }" class="btn btn-sm">${ pagesCount }</a>
 				</c:if>
 			</div>
 		</div>
