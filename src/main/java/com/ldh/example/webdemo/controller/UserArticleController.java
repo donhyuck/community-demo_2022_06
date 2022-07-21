@@ -50,22 +50,29 @@ public class UserArticleController {
 			return rq.historyBackOnView(Ut.f("%d번 게시판은 등록되지 않았습니다.", boardId));
 		}
 
-		// 게시판에 해당하는 게시글 정보 묶음 가져오기
+		// 전체 게시글 갯수
 		int articlesCount = articleService.getArticlesCount(boardId);
-
+		// 한 페이지 당 갯수
 		int itemsCountInAPage = 10;
+		// 페이지 갯수
+		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
+
+		// 게시판에 해당하는 게시글 정보 묶음 가져오기
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage,
 				page);
 
 		model.addAttribute("board", board);
-		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
+		model.addAttribute("articlesCount", articlesCount);
 
 		return "user/article/list";
 	}
 
 	@RequestMapping("/user/article/write")
-	public String showWrite(Model model) {
+	public String showWrite() {
 
 		return "user/article/write";
 	}
@@ -119,11 +126,11 @@ public class UserArticleController {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(title)) {
-			return rq.jsHistoryBack("title(을)를 입력해주세요.");
+			return rq.jsHistoryBack("제목(을)를 입력해주세요.");
 		}
 
 		if (Ut.empty(body)) {
-			return rq.jsHistoryBack("body(을)를 입력해주세요.");
+			return rq.jsHistoryBack("내용(을)를 입력해주세요.");
 		}
 
 		// 데이터와 권한 확인

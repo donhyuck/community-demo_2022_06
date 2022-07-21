@@ -42,8 +42,10 @@
 
 		<div class="page-menu mt-3">
 			<div class="btn-group justify-center">
-				<c:forEach begin="1" end="20" var="i">
-					<a href="?page=${ i }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
+				<c:forEach begin="1" end="${ pagesCount }" var="i">
+					<div class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">
+						<a href="?page=${ i }">${ i }</a>
+					</div>
 				</c:forEach>
 			</div>
 		</div>
