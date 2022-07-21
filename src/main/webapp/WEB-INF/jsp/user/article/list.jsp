@@ -5,7 +5,7 @@
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<div>게시물 개수 : ${ articlesCount }개</div>
+		<div class="mb-3">게시물 개수 : ${ articlesCount }개</div>
 		<div class="table-box-type-1">
 			<table>
 				<colgroup>
@@ -38,6 +38,14 @@
 					</c:forEach>
 				</tbody>
 			</table>
+		</div>
+
+		<div class="page-menu mt-3">
+			<div class="btn-group justify-center">
+				<c:forEach begin="1" end="20" var="i">
+					<a href="?page=${ i }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </section>
