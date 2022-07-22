@@ -50,12 +50,12 @@
 							</a>
 							<ul class="p-2 bg-base-100 ring-gray-200 ring-1">
 								<li>
-									<a href="/user/article/list?boardId=1">
+									<a href="/user/article/list?page=1&boardId=1">
 										<span>공지사항</span>
 									</a>
 								</li>
 								<li>
-									<a href="/user/article/list?boardId=2">
+									<a href="/user/article/list?page=1&boardId=2">
 										<span>자유</span>
 									</a>
 								</li>

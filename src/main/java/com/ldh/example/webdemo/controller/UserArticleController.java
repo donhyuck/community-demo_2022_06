@@ -53,7 +53,7 @@ public class UserArticleController {
 		// 전체 게시글 갯수
 		int articlesCount = articleService.getArticlesCount(boardId);
 		// 한 페이지 당 게시글 갯수
-		int itemsCountInAPage = 10;
+		int itemsCountInAPage = 8;
 		// 페이지 갯수
 		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
 
