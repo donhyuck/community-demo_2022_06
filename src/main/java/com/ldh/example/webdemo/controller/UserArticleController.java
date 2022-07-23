@@ -58,9 +58,9 @@ public class UserArticleController {
 		// 페이지 갯수
 		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
 
-		// 게시글 정보 묶음 가져오기
+		// 게시글 정보 묶음 가져오기(게시판, 페이지, 검색사항)
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage,
-				page);
+				page, searchKeyword, keywordType);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
