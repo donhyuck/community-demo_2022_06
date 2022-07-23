@@ -10,20 +10,17 @@ import com.ldh.example.webdemo.vo.Article;
 @Mapper
 public interface ArticleRepository {
 
-	public Article getForPrintArticle(@Param("id") int id);
+	public Article getForPrintArticle(int id);
 
-	public List<Article> getForPrintArticles(@Param("boardId") int boardId, int limitStart, int limitTake,
-			@Param("searchKeyword") String searchKeyword, @Param("keywordType") String keywordType);
+	public List<Article> getForPrintArticles(int boardId, int limitStart, int limitTake, String searchKeyword, String keywordType);
 
-	public void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId,
-			@Param("title") String title, @Param("body") String body);
+	public void writeArticle(int memberId, int boardId, String title,String body);
 
-	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
+	public void modifyArticle(int id, String title, String body);
 
-	public void deleteArticle(@Param("id") int id);
+	public void deleteArticle(int id);
 
 	public int getLastInsertId();
 
-	public int getArticlesCount(@Param("boardId") int boardId, @Param("searchKeyword") String searchKeyword,
-			@Param("keywordType") String keywordType);
+	public int getArticlesCount(int boardId, String searchKeyword, String keywordType);
 }
