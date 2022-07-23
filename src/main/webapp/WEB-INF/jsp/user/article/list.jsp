@@ -14,12 +14,12 @@
 			</div>
 			
 			<div class="flex-grow"></div>
-			
+
 			<!-- 검색박스 영역 시작 -->
 			<form class="flex">
 				<input type="hidden" name="boardId" value="${ param.boardId }">
 
-				<select class="select select-bordered" name="keywordType">
+				<select data-value="${param.keywordType}" class="select select-bordered" name="keywordType">
 					<option disabled="disabled">검색타입</option>
 					<option value="title">제목</option>
 					<option value="body">내용</option>

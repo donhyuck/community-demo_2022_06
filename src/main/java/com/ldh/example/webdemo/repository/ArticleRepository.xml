@@ -44,7 +44,7 @@
 			</choose>
 		</if>
 		ORDER BY A.id DESC
-		<if test="limitStart != -1">
+		<if test="limitTake != -1">
 			LIMIT #{limitStart}, #{limitTake}
 		</if>
 	</select>
