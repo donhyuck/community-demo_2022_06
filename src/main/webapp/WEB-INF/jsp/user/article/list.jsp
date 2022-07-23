@@ -5,7 +5,13 @@
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<div>게시물 개수 : <span class="text-purple-700 font-bold">${articlesCount}</span>개</div>
+		<div>
+			게시물 개수 :
+			<span class="text-purple-700 font-bold">${articlesCount}</span>
+			개
+		</div>
+
+		<!-- 게시물 목록 영역 시작 -->
 		<div class="mt-3">
 			<table class="table table-fixed w-full">
 				<colgroup>
@@ -25,6 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<!-- 게시물 데이터 -->
 					<c:forEach var="article" items="${ articles }">
 						<tr class="hover">
 							<td>${ article.id }</td>
@@ -39,35 +46,42 @@
 				</tbody>
 			</table>
 		</div>
+		<!-- 게시물 목록 영역 끝 -->
 
+		<!-- 페이지 영역 시작 -->
 		<div class="page-menu mt-3">
 			<div class="btn-group justify-center">
 				<c:set var="pageMenuArmLen" value="5" />
 				<c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
 				<c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
 
+				<c:set var="pageBaseUri" value="?boardId=${ boardId }" />
+				<c:set var="pageBaseUri" value="${ pageBaseUri }&searchKeyword=${ param.searchKeyword }" />
+				<c:set var="pageBaseUri" value="${ pageBaseUri }&keywordType=${ param.keywordType }" />
+
 				<!-- 앞으로 이동 -->
 				<c:if test="${ startPage > 1 }">
-					<a href="?page=1&boardId=${ boardId }" class="btn btn-sm">《</a>
+					<a href="${ pageBaseUri }&page=1" class="btn btn-sm">《</a>
 				</c:if>
 				<c:if test="${ page > 1 }">
-					<a href="?page=${ page-1 }&boardId=${ boardId }" class="btn btn-sm">〈</a>
+					<a href="${ pageBaseUri }&page=${ page-1 }" class="btn btn-sm">〈</a>
 				</c:if>
 
 				<!-- 전체이동 -->
 				<c:forEach begin="${ startPage }" end="${ endPage }" var="i">
-					<a href="?page=${ i }&boardId=${ boardId }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
+					<a href="${ pageBaseUri }&page=${ i }" class="btn btn-sm ${ param.page == i ? 'btn-active' : '' }">${ i }</a>
 				</c:forEach>
 
 				<!-- 끝으로 이동 -->
 				<c:if test="${ page < pagesCount }">
-					<a href="?page=${ page+1 }&boardId=${ boardId }" class="btn btn-sm">〉</a>
+					<a href="${ pageBaseUri }&page=${ page+1 }" class="btn btn-sm">〉</a>
 				</c:if>
 				<c:if test="${ endPage < pagesCount }">
-					<a href="?page=${ pagesCount }&boardId=${ boardId }" class="btn btn-sm">${ pagesCount }</a>
+					<a href="${ pageBaseUri }&page=${ pagesCount }" class="btn btn-sm">${ pagesCount }</a>
 				</c:if>
 			</div>
 		</div>
+		<!-- 페이지 영역 끝 -->
 	</div>
 </section>
 
