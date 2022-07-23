@@ -23,5 +23,6 @@ public interface ArticleRepository {
 
 	public int getLastInsertId();
 
-	public int getArticlesCount(@Param("boardId") int boardId);
+	public int getArticlesCount(@Param("boardId") int boardId, @Param("searchKeyword") String searchKeyword,
+			@Param("keywordType") String keywordType);
 }

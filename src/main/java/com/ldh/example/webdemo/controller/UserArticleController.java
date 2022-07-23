@@ -41,7 +41,8 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page) {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String searchKeyword,
+			@RequestParam(defaultValue = "title,body") String keywordType) {
 
 		// 게시판 정보 가져오기
 		Board board = boardService.getBoardById(boardId);
@@ -50,14 +51,14 @@ public class UserArticleController {
 			return rq.historyBackOnView(Ut.f("%d번 게시판은 등록되지 않았습니다.", boardId));
 		}
 
-		// 전체 게시글 갯수
-		int articlesCount = articleService.getArticlesCount(boardId);
+		// 전체 게시글 갯수(검색사항이 있을 경우, 해당 게시글을 대상으로)
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeyword, keywordType);
 		// 한 페이지 당 게시글 갯수
 		int itemsCountInAPage = 8;
 		// 페이지 갯수
 		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
 
-		// 게시판에 해당하는 게시글 정보 묶음 가져오기
+		// 게시글 정보 묶음 가져오기
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage,
 				page);
 
