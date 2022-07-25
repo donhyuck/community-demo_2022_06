@@ -158,3 +158,6 @@ SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, CONCAT('제�
 FROM article;
 
 SELECT COUNT(*) FROM article;
+
+# 게시물 테이블 hitCount 컬럼을 추가
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;

@@ -108,4 +108,15 @@ public class ArticleService {
 
 		return articleRepository.getArticlesCount(boardId, searchKeyword, keywordType);
 	}
+
+	public ResultData<Integer> increaseHitCount(int id) {
+
+		int affectedRowsCount = articleRepository.increaseHitCount(id);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id), "affectedRowsCount", affectedRowsCount);
+		}
+
+		return ResultData.from("S-1", "조회수가 1만큼 증가합니다.", "affectedRowsCount", affectedRowsCount);
+	}
 }
