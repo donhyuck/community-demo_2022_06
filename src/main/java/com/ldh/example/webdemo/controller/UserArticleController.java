@@ -32,17 +32,24 @@ public class UserArticleController {
 	@RequestMapping("/user/article/detail")
 	public String showDetail(Model model, int id) {
 
-		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
-
-		if (increaseHitCountRd.isFail()) {
-			return rq.historyBackOnView(Ut.f("%s번 게시물을 찾을 수 없습니다.", id));
-		}
-
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
 
 		return "user/article/detail";
+	}
+
+	@RequestMapping("/user/article/doIncreaseHitCount")
+	@ResponseBody
+	public ResultData<Integer> doIncreaseHitCount(int id) {
+
+		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+
+		return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getArticleHitCount(id));
 	}
 
 	@RequestMapping("/user/article/list")

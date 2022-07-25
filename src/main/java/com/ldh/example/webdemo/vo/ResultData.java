@@ -1,7 +1,9 @@
 package com.ldh.example.webdemo.vo;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class ResultData<DT> {
 
 	// 처리결과 성공 S-xx, 실패 F-xx

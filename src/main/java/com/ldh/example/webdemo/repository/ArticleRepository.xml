@@ -118,4 +118,10 @@
 		#{id}
 	</update>
 
+	<select id="getArticleHitCount">
+		SELECT hitCount
+		FROM article
+		WHERE id = #{id}
+	</select>
+
 </mapper>
