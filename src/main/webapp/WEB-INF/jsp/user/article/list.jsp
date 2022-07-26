@@ -40,31 +40,37 @@
 			<table class="table table-fixed w-full">
 				<colgroup>
 					<col width="60" />
-					<col width="150" />
-					<col width="150" />
-					<col width="150" />
+					<col width="120" />
+					<col width="120" />
 					<col />
+					<col width="100" />
+					<col width="100" />
+					<col width="100" />
 				</colgroup>
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th class="text-center">번호</th>
 						<th>등록날짜</th>
 						<th>수정날짜</th>
-						<th>작성자</th>
-						<th>제목</th>
+						<th class="text-center">제목</th>
+						<th class="text-center">작성자</th>
+						<th class="text-center">조회</th>
+						<th class="text-center">좋아요</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- 게시물 데이터 -->
 					<c:forEach var="article" items="${ articles }">
 						<tr class="hover">
-							<th>${ article.id }</th>
+							<th class="text-center">${ article.id }</th>
 							<td>${ article.forPrintRegDate_Type1 }</td>
 							<td>${ article.forPrintUpdateDate_Type1 }</td>
-							<td>${ article.extra__writerName }</td>
 							<td>
 								<a href="../article/detail?id=${ article.id }" class="block w-full truncate">${ article.title }</a>
 							</td>
+							<td class="text-center">${ article.extra__writerName }</td>
+							<td class="text-center">${ article.hitCount }</td>
+							<td class="text-center">123</td>
 						</tr>
 					</c:forEach>
 				</tbody>
