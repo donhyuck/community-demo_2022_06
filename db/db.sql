@@ -150,12 +150,14 @@ WHERE id IN(3);
 SELECT * FROM board;
 
 # 게시물 개수 늘리기
+/*
 INSERT INTO article
 (
 	regDate, updateDate, memberId, boardId, title, `body`
 )
 SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, CONCAT('제목_', RAND()), CONCAT('제목_', RAND())
 FROM article;
+*/
 
 SELECT COUNT(*) FROM article;
 
@@ -164,6 +166,8 @@ ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 SELECT hitCount FROM article
 WHERE id = 2045;
+
+SELECT * FROM article;
 
 # 리액션포인트 테이블 생성
 CREATE TABLE reactionPoint (
@@ -223,3 +227,23 @@ relId = 1,
 `point` = 1;
 
 SELECT * FROM reactionPoint;
+
+## 게시물 리스트 가져오는 쿼리에 관련 리액션 포인트도 같이 가져오게 하기
+SELECT A.*,
+IFNULL(SUM(RP.point), 0) AS extra__sumRP,
+IFNULL(SUM(IF(RP.point > 0, RP.point, 0)), 0) AS extra__goodRP,
+IFNULL(SUM(IF(RP.point < 0, RP.point, 0)), 0) AS extra__badRP
+FROM (
+    SELECT A.*,
+    M.nickname AS extra__writerName
+    FROM article AS A
+    LEFT JOIN
+    `member` AS M
+    ON A.memberId = M.id
+    WHERE 1
+) AS A
+LEFT JOIN reactionPoint AS RP
+ON RP.relTypeCode = 'article'
+AND A.id = RP.relId
+GROUP BY A.id
+ORDER BY A.id DESC;

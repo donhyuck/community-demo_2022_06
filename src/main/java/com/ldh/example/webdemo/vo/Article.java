@@ -20,13 +20,16 @@ public class Article {
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
+	private int extra__sumRP;
+	private int extra__goodRP;
+	private int extra__badRP;
 
 	public String getForPrintRegDate_Type1() {
-		return regDate.substring(2, 16).replace(" ", "<br>");
+		return regDate.substring(2, 16).replace(" ", "</br>");
 	}
 
 	public String getForPrintUpdateDate_Type1() {
-		return updateDate.substring(2, 16).replace(" ", "<br>");
+		return updateDate.substring(2, 16).replace(" ", "</br>");
 	}
 
 	public String getForPrintRegDate_Type2() {
