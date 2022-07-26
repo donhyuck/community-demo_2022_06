@@ -3,6 +3,31 @@
 <c:set var="pageTitle" value="게시글 상세" />
 <%@include file="../common/head.jspf"%>
 
+<!-- 게시글 조회수 스크립트 시작 -->
+<script>
+	const params = {};
+	params.id = parseInt('${param.id}');
+</script>
+
+<script>
+	function ArticleDetail__increaseHitCount() {
+		$.get('../article/doIncreaseHitCount', {
+			id : params.id
+		}, function(data) {
+			$('.article-detail__hitCount').empty().html(data.data1);
+		}, 'json');
+	}
+
+	$(function() {
+		// 실전코드
+		// ArticleDetail__increaseHitCount();
+
+		// 임시코드
+		setTimeout(ArticleDetail__increaseHitCount, 3000);
+	})
+</script>
+<!-- 게시글 조회수 스크립트 끝 -->
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
@@ -33,7 +58,9 @@
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td>${ article.hitCount }</td>
+						<td>
+							<span class="text-blue-700 article-detail__hitCount">${ article.hitCount }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -47,6 +74,7 @@
 			</table>
 		</div>
 
+		<!-- 게시글 조작 영역 시작 -->
 		<div class="btns mt-3">
 			<button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 			<c:if test="${ article.extra__actorCanModify }">
@@ -57,6 +85,7 @@
 					onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">게시물 삭제</a>
 			</c:if>
 		</div>
+		<!-- 게시글 조작 영역 끝 -->
 	</div>
 </section>
 

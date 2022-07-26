@@ -118,7 +118,7 @@
 		#{id}
 	</update>
 
-	<select id="getArticleHitCount">
+	<select id="getArticleHitCount" resultType="int">
 		SELECT hitCount
 		FROM article
 		WHERE id = #{id}
