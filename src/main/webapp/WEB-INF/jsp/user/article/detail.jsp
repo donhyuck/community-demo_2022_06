@@ -13,6 +13,7 @@
 	function ArticleDetail__increaseHitCount() {
 		$.get('../article/doIncreaseHitCount', {
 			id : params.id
+			ajaxMode: 'Y'
 		}, function(data) {
 			$('.article-detail__hitCount').empty().html(data.data1);
 		}, 'json');
@@ -23,7 +24,7 @@
 		// ArticleDetail__increaseHitCount();
 
 		// 임시코드
-		setTimeout(ArticleDetail__increaseHitCount, 3000);
+		setTimeout(ArticleDetail__increaseHitCount, 300);
 	})
 </script>
 <!-- 게시글 조회수 스크립트 끝 -->
