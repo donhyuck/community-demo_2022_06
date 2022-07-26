@@ -21,13 +21,13 @@
 					<tr>
 						<th>등록날짜</th>
 						<td>
-							<div>${ article.regDateForPrint }</div>
+							<div>${ article.forPrintRegDate_Type2 }</div>
 						</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
 						<td>
-							<div>${ article.updateDateForPrint }</div>
+							<div>${ article.forPrintUpdateDate_Type2 }</div>
 						</td>
 					</tr>
 					<tr>

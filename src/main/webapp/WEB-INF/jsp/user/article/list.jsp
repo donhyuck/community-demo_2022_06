@@ -12,7 +12,7 @@
 				<span class="text-purple-700 font-bold">${articlesCount}</span>
 				개
 			</div>
-			
+
 			<div class="flex-grow"></div>
 
 			<!-- 검색박스 영역 시작 -->
@@ -58,9 +58,9 @@
 					<!-- 게시물 데이터 -->
 					<c:forEach var="article" items="${ articles }">
 						<tr class="hover">
-							<td>${ article.id }</td>
-							<td>${ article.regDateForPrint }</td>
-							<td>${ article.updateDateForPrint }</td>
+							<th>${ article.id }</th>
+							<td>${ article.forPrintRegDate_Type1 }</td>
+							<td>${ article.forPrintUpdateDate_Type1 }</td>
 							<td>${ article.extra__writerName }</td>
 							<td>
 								<a href="../article/detail?id=${ article.id }" class="block w-full truncate">${ article.title }</a>
