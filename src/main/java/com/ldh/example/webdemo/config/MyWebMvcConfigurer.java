@@ -14,6 +14,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// beforeActionInterceptor 인터셉터 불러오기
 	@Autowired
 	BeforeActionInterceptor beforeActionInterceptor;
+
 	// needLoginInterceptor 인터셉터 불러오기
 	@Autowired
 	NeedLoginInterceptor needLoginInterceptor;
@@ -21,16 +22,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// addInterceptors 함수 -> 인터셉터를 적용하는 역할
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(beforeActionInterceptor)
-		.addPathPatterns("/**")
-		.excludePathPatterns("/resource/**")
-		.excludePathPatterns("/error");
+		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**")
+				.excludePathPatterns("/error");
 
-		registry.addInterceptor(needLoginInterceptor)
-		.addPathPatterns("/user/article/write")
-		.addPathPatterns("/user/article/doWrite")
-		.addPathPatterns("/user/article/modify")
-		.addPathPatterns("/user/article/doModify")
-		.addPathPatterns("/user/article/doDelete");
+		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/user/article/write")
+				.addPathPatterns("/user/article/doWrite").addPathPatterns("/user/article/modify")
+				.addPathPatterns("/user/article/doModify").addPathPatterns("/user/article/doDelete");
 	}
 }

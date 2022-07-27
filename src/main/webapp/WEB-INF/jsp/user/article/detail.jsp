@@ -74,6 +74,7 @@
 							<span class="text-blue-700 article-detail__hitCount">${ article.hitCount }</span>
 						</td>
 					</tr>
+					<!-- 좋아요 싫어요 추가, 취소 영역 시작 -->
 					<tr>
 						<th>추천수</th>
 						<td>
@@ -81,13 +82,16 @@
 								<span class="text-blue-700">${ article.goodRP }</span>
 								<span>&nbsp;</span>
 								<c:if test="${ actorCanMakeRP }">
-									<button class="btn btn-secondary btn-xs">좋아요 👍</button>
+									<a href="/user/reaction/doGoodReaction?relTypeCode=article&relId=${param.id}" class="btn btn-error btn-xs">좋아요
+										👍</a>
 									<span>&nbsp;</span>
-									<button class="btn btn-accent btn-xs">싫어요 👎</button>
+									<a href="/user/reaction/doBadReaction?relTypeCode=article&relId=${param.id}" class="btn btn-info btn-xs">싫어요
+										👎</a>
 								</c:if>
 							</div>
 						</td>
 					</tr>
+					<!-- 좋아요 싫어요 추가, 취소 영역 끝 -->
 					<tr>
 						<th>제목</th>
 						<td>${ article.title }</td>
