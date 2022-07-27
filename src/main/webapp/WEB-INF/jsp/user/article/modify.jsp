@@ -43,7 +43,7 @@
 					<tr>
 						<th>추천수</th>
 						<td>
-							<span class="text-blue-700 article-detail__hitCount">${ article.extra__goodRP }</span>
+							<span class="text-blue-700 article-detail__hitCount">${ article.goodRP }</span>
 						</td>
 					</tr>
 					<tr>

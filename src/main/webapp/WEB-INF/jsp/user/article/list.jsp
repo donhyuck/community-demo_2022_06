@@ -70,7 +70,7 @@
 							</td>
 							<td class="text-center">${ article.extra__writerName }</td>
 							<td class="text-center">${ article.hitCount }</td>
-							<td class="text-center">${ article.extra__goodRP }</td>
+							<td class="text-center">${ article.goodRP }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
