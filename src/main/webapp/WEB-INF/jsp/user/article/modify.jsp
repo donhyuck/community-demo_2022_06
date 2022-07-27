@@ -35,6 +35,18 @@
 						<td>${ article.extra__writerName }</td>
 					</tr>
 					<tr>
+						<th>조회수</th>
+						<td>
+							<span class="text-blue-700 article-detail__hitCount">${ article.hitCount }</span>
+						</td>
+					</tr>
+					<tr>
+						<th>추천수</th>
+						<td>
+							<span class="text-blue-700 article-detail__hitCount">${ article.extra__goodRP }</span>
+						</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>
 							<input type="text" name="title" value="${ article.title }" class="w-96 input input-bordered w-full max-w-xs"

@@ -11,18 +11,18 @@
 
 <script>
 	function ArticleDetail__increaseHitCount() {
-		
-		const localStorageKey = 'article__'+ params.id + '__viewDone';
-		
+
+		const localStorageKey = 'article__' + params.id + '__viewDone';
+
 		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
-		
+
 		localStorage.setItem(localStorageKey, true);
-		
+
 		$.get('../article/doIncreaseHitCount', {
 			id : params.id,
-			ajaxMode: 'Y'
+			ajaxMode : 'Y'
 		}, function(data) {
 			$('.article-detail__hitCount').empty().html(data.data1);
 		}, 'json');
@@ -48,7 +48,9 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${ article.id }</td>
+						<td>
+							<div class="badge badge-primary">${ article.id }</div>
+						</td>
 					</tr>
 					<tr>
 						<th>등록날짜</th>
@@ -70,6 +72,12 @@
 						<th>조회수</th>
 						<td>
 							<span class="text-blue-700 article-detail__hitCount">${ article.hitCount }</span>
+						</td>
+					</tr>
+					<tr>
+						<th>추천수</th>
+						<td>
+							<span class="text-blue-700 article-detail__hitCount">${ article.extra__goodRP }</span>
 						</td>
 					</tr>
 					<tr>
