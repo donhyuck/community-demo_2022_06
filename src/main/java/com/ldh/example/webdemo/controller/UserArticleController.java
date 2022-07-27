@@ -33,8 +33,10 @@ public class UserArticleController {
 	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		boolean actorCanMakeRP = articleService.actorCanMakeRP(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
+		model.addAttribute("actorCanMakeRP", actorCanMakeRP);
 
 		return "user/article/detail";
 	}

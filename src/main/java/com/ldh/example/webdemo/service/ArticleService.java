@@ -124,4 +124,8 @@ public class ArticleService {
 
 		return articleRepository.getArticleHitCount(id);
 	}
+
+	public boolean actorCanMakeRP(int memberId, int id) {
+		return articleRepository.actorCanMakeRP(memberId, id) == 0;
+	}
 }

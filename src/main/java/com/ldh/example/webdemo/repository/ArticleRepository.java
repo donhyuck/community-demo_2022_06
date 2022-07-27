@@ -3,7 +3,6 @@ package com.ldh.example.webdemo.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.ldh.example.webdemo.vo.Article;
 
@@ -28,4 +27,6 @@ public interface ArticleRepository {
 	public int increaseHitCount(int id);
 
 	public int getArticleHitCount(int id);
+
+	public int actorCanMakeRP(int memberId, int id);
 }

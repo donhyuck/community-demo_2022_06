@@ -77,7 +77,15 @@
 					<tr>
 						<th>추천수</th>
 						<td>
-							<span class="text-blue-700 article-detail__hitCount">${ article.extra__goodRP }</span>
+							<div class="flex items-center">
+								<span class="text-blue-700">${ article.extra__goodRP }</span>
+								<span>&nbsp;</span>
+								<c:if test="${ actorCanMakeRP }">
+									<button class="btn btn-secondary btn-xs">좋아요 👍</button>
+									<span>&nbsp;</span>
+									<button class="btn btn-accent btn-xs">싫어요 👎</button>
+								</c:if>
+							</div>
 						</td>
 					</tr>
 					<tr>
