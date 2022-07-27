@@ -262,3 +262,37 @@ ON RP.relTypeCode = 'article'
 AND A.id = RP.relId
 WHERE 1
 AND A.id = 3;
+
+# 게시물 테이블 goodReactionPoint 컬럼을 추가
+ALTER TABLE article
+ADD COLUMN goodRP INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 게시물 테이블 badReactionPoint 컬럼을 추가
+ALTER TABLE article
+ADD COLUMN badRP INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+/*
+#각 게시물 별, 좋아요, 싫어요 총합
+SELECT RP.relId,
+SUM(IF(RP.point > 0, RP.point, 0)) AS goodRP,
+SUM(IF(RP.point < 0, RP.point * 1, 0)) AS badRP
+FROM reactionPoint AS RP
+WHERE relTypeCode = 'article'
+GROUP BY RP.relTypeCode, RP.relId
+*/
+
+UPDATE article AS A
+INNER JOIN (
+	SELECT RP.relId,
+	SUM(IF(RP.point > 0, RP.point, 0)) AS goodRP,
+	SUM(IF(RP.point < 0, RP.point * -1, 0)) AS badRP
+	FROM reactionPoint AS RP
+	WHERE relTypeCode = 'article'
+	GROUP BY RP.relTypeCode, RP.relId
+) AS RP_SUM
+ON A.id = RP_SUM.relId
+SET A.goodRP = RP_SUM.goodRP,
+A.badRP = RP_SUM.badRP;
+
+SELECT * FROM article;
+SELECT * FROM reactionPoint;
