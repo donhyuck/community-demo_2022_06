@@ -2,7 +2,6 @@ package com.ldh.example.webdemo.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ldh.example.webdemo.repository.ArticleRepository;
@@ -13,7 +12,6 @@ import com.ldh.example.webdemo.vo.ResultData;
 @Service
 public class ArticleService {
 
-	@Autowired
 	private ArticleRepository articleRepository;
 
 	public ArticleService(ArticleRepository articleRepository) {
@@ -123,9 +121,5 @@ public class ArticleService {
 	public int getArticleHitCount(int id) {
 
 		return articleRepository.getArticleHitCount(id);
-	}
-
-	public boolean actorCanMakeRP(int memberId, int id) {
-		return articleRepository.actorCanMakeRP(memberId, id) == 0;
 	}
 }
