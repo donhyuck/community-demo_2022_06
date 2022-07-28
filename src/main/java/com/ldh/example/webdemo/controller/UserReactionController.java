@@ -29,6 +29,8 @@ public class UserReactionController {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
 
+		reactionPointService.doMakeLike(rq.getLoginedMemberId(), relTypeCode, relId);
+
 		return rq.jsReplace("좋아요를 하셨습니다.", replaceUri);
 	}
 
@@ -42,6 +44,8 @@ public class UserReactionController {
 		if (actorCanMakeReactionPoint == false) {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
+
+		reactionPointService.doMakeDislike(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		return rq.jsReplace("싫어요를 하셨습니다.", replaceUri);
 	}
