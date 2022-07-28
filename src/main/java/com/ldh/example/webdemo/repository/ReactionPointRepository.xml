@@ -4,7 +4,7 @@
 <mapper
 	namespace="com.ldh.example.webdemo.repository.ReactionPointRepository">
 
-	<select id="actorCanMakeRP" resultType="int">
+	<select id="getSumReactionPointByMemberId" resultType="int">
 		SELECT
 		IFNULL(SUM(RP.point), 0) AS sum
 		FROM reactionPoint AS RP

@@ -127,4 +127,18 @@
 		WHERE id = #{id}
 	</select>
 
+	<update id="increaseGoodRP">
+		UPDATE article
+		SET goodRP = goodRP + 1
+		WHERE id =
+		#{id}
+	</update>
+
+	<update id="increaseBadRP">
+		UPDATE article
+		SET badRP = badRP + 1
+		WHERE id =
+		#{id}
+	</update>
+
 </mapper>
