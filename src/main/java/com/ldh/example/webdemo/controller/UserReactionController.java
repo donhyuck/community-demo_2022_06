@@ -18,9 +18,9 @@ public class UserReactionController {
 		this.rq = rq;
 	}
 
-	@RequestMapping("/user/reaction/doGoodReaction")
+	@RequestMapping("/user/reaction/doMakeLike")
 	@ResponseBody
-	public String doGoodReaction(String relTypeCode, int relId) {
+	public String doMakeLike(String relTypeCode, int relId, String replaceUri) {
 
 		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
 				relId);
@@ -29,12 +29,12 @@ public class UserReactionController {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
 
-		return rq.jsReplace("좋아요를 하셨습니다.", "/");
+		return rq.jsReplace("좋아요를 하셨습니다.", replaceUri);
 	}
 
-	@RequestMapping("/user/reaction/doBadReaction")
+	@RequestMapping("/user/reaction/doMakeDislike")
 	@ResponseBody
-	public String doBadReaction(String relTypeCode, int relId) {
+	public String doMakeDislike(String relTypeCode, int relId, String replaceUri) {
 
 		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
 				relId);
@@ -43,7 +43,7 @@ public class UserReactionController {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
 
-		return rq.jsReplace("싫어요를 하셨습니다.", "/");
+		return rq.jsReplace("싫어요를 하셨습니다.", replaceUri);
 	}
 
 }

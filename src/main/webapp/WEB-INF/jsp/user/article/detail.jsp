@@ -82,11 +82,15 @@
 								<span class="text-blue-700">${ article.goodRP }</span>
 								<span>&nbsp;</span>
 								<c:if test="${ actorCanMakeRP }">
-									<a href="/user/reaction/doGoodReaction?relTypeCode=article&relId=${param.id}" class="btn btn-error btn-xs">좋아요
-										👍</a>
+									<a href="/user/reaction/doMakeLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+										class="btn btn-error btn-xs">
+										<span>좋아요 👍</span>
+									</a>
 									<span>&nbsp;</span>
-									<a href="/user/reaction/doBadReaction?relTypeCode=article&relId=${param.id}" class="btn btn-info btn-xs">싫어요
-										👎</a>
+									<a href="/user/reaction/doMakeDislike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+										class="btn btn-info btn-xs">
+										<span>싫어요 👎</span>
+									</a>
 								</c:if>
 							</div>
 						</td>

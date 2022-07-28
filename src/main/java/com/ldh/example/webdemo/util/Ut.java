@@ -1,5 +1,7 @@
 package com.ldh.example.webdemo.util;
 
+import java.net.URLEncoder;
+
 public class Ut {
 
 	public static boolean empty(Object obj) {
@@ -57,5 +59,14 @@ public class Ut {
 				location.replace('%s');
 				</script>
 				""", msg, uri);
+	}
+
+	public static String getUriEncoded(String str) {
+
+		try {
+			return URLEncoder.encode(str, "UTF-8");
+		} catch (Exception e) {
+			return str;
+		}
 	}
 }
