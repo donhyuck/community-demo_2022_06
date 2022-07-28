@@ -123,25 +123,13 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
-	public ResultData increaseGoodRP(int id) {
+	public void increaseGoodRP(int id) {
 
-		int affectedRowsCount = articleRepository.increaseGoodRP(id);
-
-		if (affectedRowsCount == 0) {
-			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id), "affectedRowsCount", affectedRowsCount);
-		}
-
-		return ResultData.from("S-1", "좋아요가 1만큼 증가합니다.", "affectedRowsCount", affectedRowsCount);
+		articleRepository.increaseGoodRP(id);
 	}
 
-	public ResultData increaseBadRP(int id) {
+	public void increaseBadRP(int id) {
 
-		int affectedRowsCount = articleRepository.increaseBadRP(id);
-
-		if (affectedRowsCount == 0) {
-			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", id), "affectedRowsCount", affectedRowsCount);
-		}
-
-		return ResultData.from("S-1", "싫어요가 1만큼 증가합니다.", "affectedRowsCount", affectedRowsCount);
+		articleRepository.increaseBadRP(id);
 	}
 }

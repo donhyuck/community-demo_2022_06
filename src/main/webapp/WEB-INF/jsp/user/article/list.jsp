@@ -7,8 +7,8 @@
 	<div class="container mx-auto px-3">
 		<!-- 목록 상단구역 시작 -->
 		<div class="flex">
-			<div>
-				게시물 개수 :
+			<div class="flex items-center">
+				게시물 개수&nbsp;:&nbsp;
 				<span class="text-purple-700 font-bold">${articlesCount}</span>
 				개
 			</div>

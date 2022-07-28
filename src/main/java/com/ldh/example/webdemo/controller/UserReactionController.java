@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.ReactionPointService;
+import com.ldh.example.webdemo.vo.ResultData;
 import com.ldh.example.webdemo.vo.Rq;
 
 @Controller
@@ -22,32 +23,32 @@ public class UserReactionController {
 	@ResponseBody
 	public String doMakeLike(String relTypeCode, int relId, String replaceUri) {
 
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
-				relId);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
+				relTypeCode, relId);
 
-		if (actorCanMakeReactionPoint == false) {
-			return rq.jsHistoryBack("이미 처리되었습니다.");
+		if (actorCanMakeReactionPointRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
 
-		reactionPointService.doMakeLike(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData doMakeLikeRd = reactionPointService.doMakeLike(rq.getLoginedMemberId(), relTypeCode, relId);
 
-		return rq.jsReplace("좋아요를 하셨습니다.", replaceUri);
+		return rq.jsReplace(doMakeLikeRd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/user/reaction/doMakeDislike")
 	@ResponseBody
 	public String doMakeDislike(String relTypeCode, int relId, String replaceUri) {
 
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
-				relId);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
+				relTypeCode, relId);
 
-		if (actorCanMakeReactionPoint == false) {
-			return rq.jsHistoryBack("이미 처리되었습니다.");
+		if (actorCanMakeReactionPointRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
 
-		reactionPointService.doMakeDislike(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData doMakeDislikeRd = reactionPointService.doMakeDislike(rq.getLoginedMemberId(), relTypeCode, relId);
 
-		return rq.jsReplace("싫어요를 하셨습니다.", replaceUri);
+		return rq.jsReplace(doMakeDislikeRd.getMsg(), replaceUri);
 	}
 
 }

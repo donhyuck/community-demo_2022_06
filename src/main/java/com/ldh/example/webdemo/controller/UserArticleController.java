@@ -37,10 +37,13 @@ public class UserArticleController {
 	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
-		boolean actorCanMakeRP = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), "article", id);
+
+		// 리액션 or 리액션 취소 가능여부
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), "article",
+				id);
 
 		model.addAttribute("article", article);
-		model.addAttribute("actorCanMakeRP", actorCanMakeRP);
+		model.addAttribute("actorCanMakeRP", actorCanMakeReactionPointRd.isSuccess());
 
 		return "user/article/detail";
 	}
