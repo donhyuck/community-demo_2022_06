@@ -83,7 +83,31 @@
 								<span>&nbsp;</span>
 								<c:if test="${ actorCanMakeRP }">
 									<a href="/user/reaction/doMakeLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+										class="btn btn-error btn-xs btn-outline">
+										<span>좋아요 👍</span>
+									</a>
+									<span>&nbsp;</span>
+									<a href="/user/reaction/doMakeDislike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+										class="btn btn-info btn-xs btn-outline">
+										<span>싫어요 👎</span>
+									</a>
+								</c:if>
+
+								<c:if test="${ actorCanCancelLike }">
+									<a href="/user/reaction/doMakeLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-error btn-xs">
+										<span>좋아요 👍</span>
+									</a>
+									<span>&nbsp;</span>
+									<a href="#" onclick="alert(this.title); return false;" title="먼저 [좋아요]를 취소해주세요."
+										class="btn btn-info btn-xs btn-outline">
+										<span>싫어요 👎</span>
+									</a>
+								</c:if>
+
+								<c:if test="${ actorCanCancelDisLike }">
+									<a href="#" onclick="alert(this.title); return false;" title="먼저 [싫어요]를 취소해주세요."
+										class="btn btn-error btn-xs btn-outline">
 										<span>좋아요 👍</span>
 									</a>
 									<span>&nbsp;</span>

@@ -42,6 +42,18 @@ public class UserArticleController {
 		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), "article",
 				id);
 
+		if (actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+			int sumReactionPoint = (int) actorCanMakeReactionPointRd.getData1();
+
+			if (sumReactionPoint > 0) {
+				model.addAttribute("actorCanCancelLike", true);
+			}
+
+			else if (sumReactionPoint < 0) {
+				model.addAttribute("actorCanCancelDisLike", true);
+			}
+		}
+
 		model.addAttribute("article", article);
 		model.addAttribute("actorCanMakeRP", actorCanMakeReactionPointRd.isSuccess());
 
