@@ -296,3 +296,49 @@ A.badRP = RP_SUM.badRP;
 
 SELECT * FROM article;
 SELECT * FROM reactionPoint;
+
+# 댓글 테이블 생성
+CREATE TABLE reply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+    relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터번호',
+    `body` TEXT NOT NULL
+);
+
+# 댓글 테스트 데이터
+INSERT INTO reply
+SET regdate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 aaaaaaaaaaaa';
+
+INSERT INTO reply
+SET regdate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 bbbbbbbbbbbb';
+
+INSERT INTO reply
+SET regdate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 ccccccccccc';
+
+INSERT INTO reply
+SET regdate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글 ddddddddddd';
+
+SELECT * FROM reply;
