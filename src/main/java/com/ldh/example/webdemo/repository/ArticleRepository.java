@@ -31,4 +31,8 @@ public interface ArticleRepository {
 	public void increaseGoodRP(int id);
 
 	public void increaseBadRP(int id);
+
+	public void decreaseGoodRP(int id);
+
+	public void decreaseBadRP(int id);
 }

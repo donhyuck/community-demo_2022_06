@@ -37,4 +37,20 @@
 		`point` = -1
 	</insert>
 
+	<delete id="doCancelLike">
+		DELETE FROM reactionPoint
+		WHERE memberId =
+		#{memberId}
+		AND relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+	</delete>
+
+	<delete id="doCancelDislike">
+		DELETE FROM reactionPoint
+		WHERE memberId =
+		#{memberId}
+		AND relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+	</delete>
+
 </mapper>

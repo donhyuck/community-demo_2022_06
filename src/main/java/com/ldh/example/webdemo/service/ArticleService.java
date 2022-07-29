@@ -132,4 +132,14 @@ public class ArticleService {
 
 		articleRepository.increaseBadRP(id);
 	}
+
+	public void decreaseGoodRP(int id) {
+
+		articleRepository.decreaseGoodRP(id);
+	}
+
+	public void decreaseBadRP(int id) {
+
+		articleRepository.decreaseBadRP(id);
+	}
 }

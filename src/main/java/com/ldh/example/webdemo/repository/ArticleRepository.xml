@@ -141,4 +141,17 @@
 		#{id}
 	</update>
 
+	<update id="decreaseGoodRP">
+		UPDATE article
+		SET goodRP = goodRP - 1
+		WHERE id =
+		#{id}
+	</update>
+
+	<update id="decreaseBadRP">
+		UPDATE article
+		SET badRP = badRP - 1
+		WHERE id =
+		#{id}
+	</update>
 </mapper>

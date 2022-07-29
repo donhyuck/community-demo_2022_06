@@ -10,4 +10,8 @@ public interface ReactionPointRepository {
 	public void doMakeLike(int memberId, String relTypeCode, int relId);
 
 	public void doMakeDislike(int memberId, String relTypeCode, int relId);
+
+	public void doCancelLike(int memberId, String relTypeCode, int relId);
+
+	public void doCancelDislike(int memberId, String relTypeCode, int relId);
 }
