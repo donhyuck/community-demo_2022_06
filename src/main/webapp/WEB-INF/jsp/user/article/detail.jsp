@@ -148,4 +148,43 @@
 	</div>
 </section>
 
+<!-- 댓글 영역 시작 -->
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<h2 class="mb-5 font-bold">댓글</h2>
+		<c:if test="${ rq.notLogined }">
+			<a href="/user/member/login" class="btn btn-link">로그인</a>
+				후 댓글을 남길 수 있습니다.
+		</c:if>
+
+		<c:if test="${ rq.logined }">
+			<form class="table-box-type-1" method="post" action="../reply/doWrite">
+				<input type="hidden" name="relTypeCode" value="article" />
+				<input type="hidden" name="relId" value="${ article.id }" />
+				<table>
+					<colgroup>
+						<col width="200" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>작성자</th>
+							<td>${ rq.loginedMember.nickname }</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>
+								<textarea name="body" rows="5" required="required" placeholder="댓글을 남겨보세요."></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="btns mt-3">
+					<button type="button" class="btn btn-primary btn-sm btn-outline">등록</button>
+				</div>
+			</form>
+		</c:if>
+	</div>
+</section>
+<!-- 댓글 영역 끝 -->
 <%@include file="../common/foot.jspf"%>
