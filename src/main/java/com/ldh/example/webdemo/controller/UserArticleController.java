@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ldh.example.webdemo.service.ArticleService;
 import com.ldh.example.webdemo.service.BoardService;
 import com.ldh.example.webdemo.service.ReactionPointService;
+import com.ldh.example.webdemo.service.ReplyService;
 import com.ldh.example.webdemo.util.Ut;
 import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.Board;
+import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 import com.ldh.example.webdemo.vo.Rq;
 
@@ -22,13 +24,15 @@ public class UserArticleController {
 
 	private ArticleService articleService;
 	private BoardService boardService;
+	private ReplyService replyService;
 	private ReactionPointService reactionPointService;
 	private Rq rq;
 
 	public UserArticleController(ArticleService articleService, BoardService boardService,
-			ReactionPointService reactionPointService, Rq rq) {
+			ReactionPointService reactionPointService, ReplyService replyService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.replyService = replyService;
 		this.reactionPointService = reactionPointService;
 		this.rq = rq;
 	}
@@ -37,6 +41,10 @@ public class UserArticleController {
 	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+
+		// 게시글에 해당하는 댓글 목록 가져오기
+		List<Reply> replies = replyService.getForPrintReplies("article", id);
+		int repliesCount = replies.size();
 
 		// 리액션 or 리액션 취소 가능여부
 		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), "article",
@@ -55,6 +63,7 @@ public class UserArticleController {
 		}
 
 		model.addAttribute("article", article);
+		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("actorCanMakeRP", actorCanMakeReactionPointRd.isSuccess());
 
 		return "user/article/detail";

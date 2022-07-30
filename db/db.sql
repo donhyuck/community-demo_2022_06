@@ -342,3 +342,12 @@ relId = 2,
 `body` = '댓글 ddddddddddd';
 
 SELECT * FROM reply;
+
+SELECT R.*,
+M.nickname AS extra__writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = 'article'
+AND R.relId = 1
+ORDER BY R.id DESC;

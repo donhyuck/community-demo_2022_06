@@ -181,12 +181,17 @@
 <!-- 댓글 영역 시작 -->
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<h2 class="mb-5 font-bold">댓글</h2>
+		<h2 class="mb-5">
+			<span class="font-bold">댓글</span>
+			<span class="text-purple-700">${repliesCount}</span>
+			개
+		</h2>
 		<c:if test="${ rq.notLogined }">
 			<a href="/user/member/login" class="btn btn-link">로그인</a>
 				후 댓글을 남길 수 있습니다.
 		</c:if>
 
+		<!-- 댓글 작성 영역 시작 -->
 		<c:if test="${ rq.logined }">
 			<form class="table-box-type-1" method="post" action="../reply/doWrite"
 				onsubmit="ReplyWrite__submitForm(this); return false;">
@@ -204,7 +209,7 @@
 						<tr>
 							<th>내용</th>
 							<td>
-								<textarea name="body" rows="5" placeholder="댓글을 남겨보세요."></textarea>
+								<textarea name="body" rows="3" class="w-7/12" placeholder="댓글을 남겨보세요."></textarea>
 							</td>
 						</tr>
 					</tbody>
@@ -215,6 +220,11 @@
 				</div>
 			</form>
 		</c:if>
+		<!-- 댓글 작성 영역 끝 -->
+
+		<!-- 댓글 목록 영역 시작 -->
+		<div class="reply-list"></div>
+		<!-- 댓글 목록 영역 끝 -->
 	</div>
 </section>
 <!-- 댓글 영역 끝 -->

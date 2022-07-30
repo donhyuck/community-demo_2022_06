@@ -1,9 +1,12 @@
 package com.ldh.example.webdemo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.ldh.example.webdemo.repository.ReplyRepository;
 import com.ldh.example.webdemo.util.Ut;
+import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 
 @Service
@@ -22,6 +25,11 @@ public class ReplyService {
 		int id = replyRepository.getLastInsertId();
 
 		return ResultData.from("S-1", Ut.f("%s번 댓글이 등록되었습니다.", id), "id", id);
+	}
+
+	public List<Reply> getForPrintReplies(String relTypeCode, int relId) {
+
+		return replyRepository.getForPrintReplies(relTypeCode, relId);
 	}
 
 }
