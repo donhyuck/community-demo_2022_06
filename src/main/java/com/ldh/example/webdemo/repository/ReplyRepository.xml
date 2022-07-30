@@ -4,5 +4,21 @@
 <mapper
 	namespace="com.ldh.example.webdemo.repository.ReplyRepository">
 
+	<insert id="writeReply">
+		INSERT INTO reply
+		SET regDate = NOW(),
+		updateDate =
+		NOW(),
+		memberId = #{memberId},
+		relTypeCode = #{relTypeCode},
+		relId =
+		#{relId},
+		`body` = #{body}
+	</insert>
+
+	<select id="getLastInsertId" resultType="int">
+		SELECT
+		LAST_INSERT_ID()
+	</select>
 
 </mapper>
