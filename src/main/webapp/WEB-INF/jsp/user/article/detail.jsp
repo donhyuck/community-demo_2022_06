@@ -109,14 +109,16 @@
 						<th>추천수</th>
 						<td>
 							<div class="flex items-center">
-								<span class="text-blue-700">${ article.goodRP }</span>
-								<span>&nbsp;</span>
+
+								<div class="rounded-full text-center text-white bg-red-400 w-6 mr-2">
+									<span>${ article.goodRP }</span>
+								</div>
+
 								<c:if test="${ actorCanMakeRP }">
 									<a href="/user/reaction/doMakeLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
-										class="btn btn-error btn-xs btn-outline">
+										class="btn btn-error btn-xs btn-outline mr-1">
 										<span>좋아요 👍</span>
 									</a>
-									<span>&nbsp;</span>
 									<a href="/user/reaction/doMakeDislike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-info btn-xs btn-outline">
 										<span>싫어요 👎</span>
@@ -125,7 +127,7 @@
 
 								<c:if test="${ actorCanCancelLike }">
 									<a href="/user/reaction/doCancelLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
-										class="btn btn-error btn-xs">
+										class="btn btn-error btn-xs mr-1">
 										<span>좋아요 👍</span>
 									</a>
 									<span>&nbsp;</span>
@@ -137,7 +139,7 @@
 
 								<c:if test="${ actorCanCancelDisLike }">
 									<a href="#" onclick="alert(this.title); return false;" title="먼저 [싫어요 👎]를 취소해주세요."
-										class="btn btn-error btn-xs btn-outline">
+										class="btn btn-error btn-xs btn-outline mr-1">
 										<span>좋아요 👍</span>
 									</a>
 									<span>&nbsp;</span>
@@ -182,12 +184,12 @@
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<h2 class="mb-5">
-			<span class="font-bold">댓글</span>
+			<span class="font-semibold">댓글</span>
 			<span class="text-purple-700">${repliesCount}</span>
 			개
 		</h2>
 		<c:if test="${ rq.notLogined }">
-			<a href="/user/member/login" class="btn btn-link">로그인</a>
+			<a href="/user/member/login" class="link link-primary">로그인</a>
 				후 댓글을 남길 수 있습니다.
 		</c:if>
 
@@ -197,6 +199,7 @@
 				onsubmit="ReplyWrite__submitForm(this); return false;">
 				<input type="hidden" name="relTypeCode" value="article" />
 				<input type="hidden" name="relId" value="${ article.id }" />
+				<input type="hidden" name="replaceUri" value="${ rq.currentUri }" />
 				<table>
 					<colgroup>
 						<col width="200" />
