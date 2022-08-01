@@ -228,33 +228,46 @@
 		<div class="reply-list mt-3">
 			<table class="table table-fixed w-full">
 				<colgroup>
-					<col width="60" />
-					<col width="160"  />
-					<col width="160"  />
+					<col width="50" />
+					<col width="100" />
+					<col width="100" />
+					<col width="130" />
 					<col />
-					<col width="100" />
-					<col width="100" />
+					<col width="70" />
+					<col width="180" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">번호</th>
-						<th>등록날짜</th>
-						<th>수정날짜</th>
-						<th>내용</th>
+						<th class="text-center">등록날짜</th>
+						<th class="text-center">수정날짜</th>
 						<th class="text-center">작성자</th>
-						<th class="text-center">좋아요</th>
+						<th>내용</th>
+						<th class="text-center">추천</th>
+						<th class="text-center">비고</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- 댓글 데이터 -->
 					<c:forEach var="reply" items="${ replies }">
-						<tr class="hover">
+						<tr>
 							<th class="text-center">${ reply.id }</th>
-							<td>${ reply.forPrintRegDate_Type2 }</td>
-							<td>${ reply.forPrintUpdateDate_Type2 }</td>
-							<td>${ reply.forPrintBody }</td>
+							<td>${ reply.forPrintRegDate_Type1 }</td>
+							<td>${ reply.forPrintUpdateDate_Type1 }</td>
 							<td class="text-center">${ reply.extra__writerName }</td>
+							<td class="block w-full truncate">${ reply.forPrintBody }</td>
 							<td class="text-center">${ reply.goodRP }</td>
+							<!-- 댓글 조작 영역 시작 -->
+							<td class="text-center">
+								<c:if test="${ reply.extra__actorCanModify }">
+									<a class="btn btn-link" href="../reply/modify?id=${reply.id}">수정</a>
+								</c:if>
+								<c:if test="${ reply.extra__actorCanDelete }">
+									<a class="btn btn-link" href="../reply/doDelete?id=${ reply.id }"
+										onclick="if ( confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+								</c:if>
+							</td>
+							<!-- 댓글 조작 영역 끝 -->
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -20,6 +20,8 @@ public class Reply {
 	private int badRP;
 
 	private String extra__writerName;
+	private boolean extra__actorCanDelete;
+	private boolean extra__actorCanModify;
 
 	public String getForPrintRegDate_Type1() {
 		return regDate.substring(2, 16).replace(" ", "</br>");

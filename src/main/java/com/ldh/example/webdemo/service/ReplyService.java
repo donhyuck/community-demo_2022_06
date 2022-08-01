@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ldh.example.webdemo.repository.ReplyRepository;
 import com.ldh.example.webdemo.util.Ut;
+import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 
@@ -27,9 +28,19 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%s번 댓글이 등록되었습니다.", id), "id", id);
 	}
 
-	public List<Reply> getForPrintReplies(String relTypeCode, int relId) {
+	public List<Reply> getForPrintReplies(int memberId, String relTypeCode, int relId) {
 
-		return replyRepository.getForPrintReplies(relTypeCode, relId);
+		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode, relId);
+
+		for (Reply reply : replies) {
+			updateForPrintData(memberId, reply);
+		}
+
+		return replies;
+	}
+
+	private void updateForPrintData(int memberId, Reply reply) {
+		// 구현 예정
 	}
 
 }
