@@ -44,7 +44,6 @@ public class UserArticleController {
 
 		// 게시글에 해당하는 댓글 목록 가져오기
 		List<Reply> replies = replyService.getForPrintReplies("article", id);
-		int repliesCount = replies.size();
 
 		// 리액션 or 리액션 취소 가능여부
 		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), "article",
@@ -63,7 +62,7 @@ public class UserArticleController {
 		}
 
 		model.addAttribute("article", article);
-		model.addAttribute("repliesCount", repliesCount);
+		model.addAttribute("replies", replies);
 		model.addAttribute("actorCanMakeRP", actorCanMakeReactionPointRd.isSuccess());
 
 		return "user/article/detail";

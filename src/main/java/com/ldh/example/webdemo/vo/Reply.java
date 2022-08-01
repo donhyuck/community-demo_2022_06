@@ -16,5 +16,9 @@ public class Reply {
 	private String relTypeCode;
 	private int relId;
 	private String body;
+	private int goodRP;
+	private int badRP;
+	
+	private String extra__writerName;
 
 }

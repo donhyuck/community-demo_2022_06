@@ -185,8 +185,7 @@
 	<div class="container mx-auto px-3">
 		<h2 class="mb-5">
 			<span class="font-semibold">댓글</span>
-			<span class="text-purple-700">${repliesCount}</span>
-			개
+			<span class="text-purple-700">( ${replies.size()} )</span>
 		</h2>
 		<c:if test="${ rq.notLogined }">
 			<a href="/user/member/login" class="link link-primary">로그인</a>
@@ -226,7 +225,41 @@
 		<!-- 댓글 작성 영역 끝 -->
 
 		<!-- 댓글 목록 영역 시작 -->
-		<div class="reply-list"></div>
+		<div class="reply-list mt-3">
+			<table class="table table-fixed w-full">
+				<colgroup>
+					<col width="60" />
+					<col width="210"  />
+					<col width="210"  />
+					<col />
+					<col width="100" />
+					<col width="100" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="text-center">번호</th>
+						<th>등록날짜</th>
+						<th>수정날짜</th>
+						<th>내용</th>
+						<th class="text-center">작성자</th>
+						<th class="text-center">좋아요</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 댓글 데이터 -->
+					<c:forEach var="reply" items="${ replies }">
+						<tr class="hover">
+							<th class="text-center">${ reply.id }</th>
+							<td>${ reply.regDate }</td>
+							<td>${ reply.updateDate }</td>
+							<td>${ reply.body }</td>
+							<td class="text-center">${ reply.extra__writerName }</td>
+							<td class="text-center">${ reply.goodRP }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 		<!-- 댓글 목록 영역 끝 -->
 	</div>
 </section>
