@@ -309,6 +309,7 @@ CREATE TABLE reply (
 );
 
 # 댓글 테스트 데이터
+# 1번 회원, 1번 게시글 댓글 등록
 INSERT INTO reply
 SET regdate = NOW(),
 updateDate = NOW(),
@@ -317,6 +318,7 @@ relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 aaaaaaaaaaaa';
 
+# 1번 회원, 1번 게시글 댓글 등록
 INSERT INTO reply
 SET regdate = NOW(),
 updateDate = NOW(),
@@ -325,6 +327,7 @@ relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 bbbbbbbbbbbb';
 
+# 2번 회원, 1번 게시글 댓글 등록
 INSERT INTO reply
 SET regdate = NOW(),
 updateDate = NOW(),
@@ -333,6 +336,7 @@ relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 ccccccccccc';
 
+# 3번 회원, 2번 게시글 댓글 등록
 INSERT INTO reply
 SET regdate = NOW(),
 updateDate = NOW(),
@@ -351,3 +355,14 @@ ON R.memberId = M.id
 WHERE R.relTypeCode = 'article'
 AND R.relId = 1
 ORDER BY R.id DESC;
+
+# 댓글 테이블 goodReactionPoint 컬럼을 추가
+ALTER TABLE reply
+ADD COLUMN goodRP INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블 badReactionPoint 컬럼을 추가
+ALTER TABLE reply
+ADD COLUMN badRP INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블에 인덱스 걸기
+ALTER TABLE `reply` ADD INDEX (`relTypeCode`, `relId`);
