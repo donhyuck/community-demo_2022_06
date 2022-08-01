@@ -38,4 +38,8 @@ public class Article {
 	public String getForPrintUpdateDate_Type2() {
 		return updateDate.substring(2, 16);
 	}
+
+	public String getForPrintBody() {
+		return body.replaceAll("\n", "</br>");
+	}
 }

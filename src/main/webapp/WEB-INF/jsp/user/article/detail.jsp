@@ -229,8 +229,8 @@
 			<table class="table table-fixed w-full">
 				<colgroup>
 					<col width="60" />
-					<col width="210"  />
-					<col width="210"  />
+					<col width="160"  />
+					<col width="160"  />
 					<col />
 					<col width="100" />
 					<col width="100" />
@@ -250,9 +250,9 @@
 					<c:forEach var="reply" items="${ replies }">
 						<tr class="hover">
 							<th class="text-center">${ reply.id }</th>
-							<td>${ reply.regDate }</td>
-							<td>${ reply.updateDate }</td>
-							<td>${ reply.body }</td>
+							<td>${ reply.forPrintRegDate_Type2 }</td>
+							<td>${ reply.forPrintUpdateDate_Type2 }</td>
+							<td>${ reply.forPrintBody }</td>
 							<td class="text-center">${ reply.extra__writerName }</td>
 							<td class="text-center">${ reply.goodRP }</td>
 						</tr>
