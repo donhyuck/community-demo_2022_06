@@ -17,6 +17,8 @@ public interface ReplyRepository {
 
 	public Reply getForPrintReply(int id);
 
+	public Reply getReply(int id);
+
 	public void deleteReply(int id);
 
 }

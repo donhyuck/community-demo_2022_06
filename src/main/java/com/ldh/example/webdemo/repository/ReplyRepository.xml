@@ -45,6 +45,13 @@
 		AND R.id = #{id}
 	</select>
 
+	<select id="getReply" resultType="Reply">
+		SELECT R.*
+		FROM reply AS R
+		WHERE
+		R.id = #{id}
+	</select>
+
 	<delete id="deleteReply">
 		DELETE
 		FROM reply

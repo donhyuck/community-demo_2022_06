@@ -56,7 +56,7 @@ public class UserReplyController {
 
 	@RequestMapping("/user/reply/doDelete")
 	@ResponseBody
-	public String doDelete(int id) {
+	public String doDelete(int id, String replaceUri) {
 
 		// 데이터와 권한 확인
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
@@ -73,6 +73,14 @@ public class UserReplyController {
 
 		replyService.deleteReply(id);
 
-		return rq.jsReplace(Ut.f("%s번 댓글이 삭제되었습니다.", id), "../article/list");
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+		}
+
+		return rq.jsReplace(Ut.f("%s번 댓글이 삭제되었습니다.", id), replaceUri);
 	}
 }

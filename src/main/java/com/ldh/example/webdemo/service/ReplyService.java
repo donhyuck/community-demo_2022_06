@@ -46,6 +46,11 @@ public class ReplyService {
 		return reply;
 	}
 
+	public Reply getReply(int id) {
+
+		return replyRepository.getReply(id);
+	}
+
 	private void updateForPrintData(int memberId, Reply reply) {
 
 		if (memberId == 0) {
