@@ -255,7 +255,7 @@
 							<td>${ reply.forPrintRegDate_Type1 }</td>
 							<td>${ reply.forPrintUpdateDate_Type1 }</td>
 							<td class="text-center">${ reply.extra__writerName }</td>
-							<td class="block w-full truncate">${ reply.forPrintBody }</td>
+							<td>${ reply.forPrintBody }</td>
 							<td class="text-center">${ reply.goodRP }</td>
 							<!-- 댓글 조작 영역 시작 -->
 							<td class="text-center">

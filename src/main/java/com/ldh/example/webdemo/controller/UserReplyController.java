@@ -1,6 +1,7 @@
 package com.ldh.example.webdemo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,6 +53,27 @@ public class UserReplyController {
 		}
 
 		return rq.jsReplace(Ut.f("%s번 댓글이 등록되었습니다.", replyId), replaceUri);
+	}
+
+	@RequestMapping("/user/reply/modify")
+	public String showModify(Model model, int id, String replaceUri) {
+
+		// 데이터와 권한 확인
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%s번 댓글을 찾을 수 없습니다.", id));
+		}
+
+		ResultData actorCanModifyRd = replyService.actorCanModify(rq.getLoginedMemberId(), reply);
+
+		if (actorCanModifyRd.isFail()) {
+			return rq.historyBackOnView(actorCanModifyRd.getMsg());
+		}
+
+		model.addAttribute("reply", reply);
+
+		return "user/reply/modify";
 	}
 
 	@RequestMapping("/user/reply/doDelete")
