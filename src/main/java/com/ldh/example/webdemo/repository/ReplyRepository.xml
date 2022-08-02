@@ -52,6 +52,13 @@
 		R.id = #{id}
 	</select>
 
+	<update id="modifyReply">
+		UPDATE reply
+		SET updateDate = NOW(),
+		`body` = #{body}
+		WHERE id = #{id}
+	</update>
+
 	<delete id="deleteReply">
 		DELETE
 		FROM reply

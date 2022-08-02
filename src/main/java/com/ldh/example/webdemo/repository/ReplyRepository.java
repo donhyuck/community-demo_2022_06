@@ -19,6 +19,8 @@ public interface ReplyRepository {
 
 	public Reply getReply(int id);
 
+	public void modifyReply(int id, String body);
+
 	public void deleteReply(int id);
 
 }

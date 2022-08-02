@@ -91,6 +91,11 @@ public class ReplyService {
 		return ResultData.from("S-1", "수정가능합니다.");
 	}
 
+	public void modifyReply(int id, String body) {
+
+		replyRepository.modifyReply(id, body);
+	}
+
 	public void deleteReply(int id) {
 
 		replyRepository.deleteReply(id);

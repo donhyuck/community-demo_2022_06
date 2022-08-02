@@ -93,6 +93,45 @@ public class UserReplyController {
 		return "user/reply/modify";
 	}
 
+	@RequestMapping("/user/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body, String replaceUri) {
+
+		// 입력데이터 유효성 검사
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("댓글 번호(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(body)) {
+			return rq.jsHistoryBack("내용(을)를 입력해주세요.");
+		}
+
+		// 데이터와 권한 확인
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%s번 댓글을 찾을 수 없습니다.", id));
+		}
+
+		ResultData actorCanModifyRd = replyService.actorCanModify(rq.getLoginedMemberId(), reply);
+
+		if (actorCanModifyRd.isFail()) {
+			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
+		}
+
+		replyService.modifyReply(id, body);
+
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+		}
+
+		return rq.jsReplace(Ut.f("%s번 댓글이 수정되었습니다.", id), replaceUri);
+	}
+
 	@RequestMapping("/user/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id, String replaceUri) {
