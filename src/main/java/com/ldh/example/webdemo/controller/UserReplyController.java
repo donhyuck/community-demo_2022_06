@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.ReplyService;
 import com.ldh.example.webdemo.util.Ut;
+import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 import com.ldh.example.webdemo.vo.Rq;
 
@@ -51,5 +52,27 @@ public class UserReplyController {
 		}
 
 		return rq.jsReplace(Ut.f("%s번 댓글이 등록되었습니다.", replyId), replaceUri);
+	}
+
+	@RequestMapping("/user/reply/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+
+		// 데이터와 권한 확인
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%s번 댓글을 찾을 수 없습니다.", id));
+		}
+
+		ResultData actorCanDeleteRd = replyService.actorCanDelete(rq.getLoginedMemberId(), reply);
+
+		if (actorCanDeleteRd.isFail()) {
+			return rq.jsHistoryBack(actorCanDeleteRd.getMsg());
+		}
+
+		replyService.deleteReply(id);
+
+		return rq.jsReplace(Ut.f("%s번 댓글이 삭제되었습니다.", id), "../article/list");
 	}
 }

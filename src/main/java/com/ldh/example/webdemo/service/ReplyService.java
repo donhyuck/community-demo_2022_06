@@ -38,6 +38,14 @@ public class ReplyService {
 		return replies;
 	}
 
+	public Reply getForPrintReply(int memberId, int id) {
+
+		Reply reply = replyRepository.getForPrintReply(id);
+		updateForPrintData(memberId, reply);
+
+		return reply;
+	}
+
 	private void updateForPrintData(int memberId, Reply reply) {
 
 		if (memberId == 0) {
@@ -52,7 +60,7 @@ public class ReplyService {
 
 	}
 
-	private ResultData actorCanDelete(int memberId, Reply reply) {
+	public ResultData actorCanDelete(int memberId, Reply reply) {
 
 		if (reply == null) {
 			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", reply.getId()));
@@ -65,7 +73,7 @@ public class ReplyService {
 		return ResultData.from("S-1", "삭제가능합니다.");
 	}
 
-	private ResultData actorCanModify(int memberId, Reply reply) {
+	public ResultData actorCanModify(int memberId, Reply reply) {
 
 		if (reply == null) {
 			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", reply.getId()));
@@ -76,6 +84,11 @@ public class ReplyService {
 		}
 
 		return ResultData.from("S-1", "수정가능합니다.");
+	}
+
+	public void deleteReply(int id) {
+
+		replyRepository.deleteReply(id);
 	}
 
 }

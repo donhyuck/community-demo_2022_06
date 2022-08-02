@@ -21,7 +21,7 @@
 		LAST_INSERT_ID()
 	</select>
 
-	<select id="getForPrintReplies" resultType="reply">
+	<select id="getForPrintReplies" resultType="Reply">
 		SELECT R.*,
 		M.nickname AS extra__writerName
 		FROM reply AS R
@@ -32,5 +32,23 @@
 		#{relId}
 		ORDER BY R.id DESC
 	</select>
+
+	<select id="getForPrintReply" resultType="Reply">
+		SELECT R.*,
+		M.nickname
+		AS extra__writerName
+		FROM reply AS R
+		LEFT JOIN `member` as M
+		ON
+		R.memberId = M.id
+		WHERE 1
+		AND R.id = #{id}
+	</select>
+
+	<delete id="deleteReply">
+		DELETE
+		FROM reply
+		WHERE id = #{id}
+	</delete>
 
 </mapper>

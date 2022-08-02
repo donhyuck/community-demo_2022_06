@@ -15,4 +15,8 @@ public interface ReplyRepository {
 
 	public List<Reply> getForPrintReplies(String relTypeCode, int relId);
 
+	public Reply getForPrintReply(int id);
+
+	public void deleteReply(int id);
+
 }
