@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.ldh.example.webdemo.repository.ReplyRepository;
 import com.ldh.example.webdemo.util.Ut;
-import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 
@@ -40,7 +39,43 @@ public class ReplyService {
 	}
 
 	private void updateForPrintData(int memberId, Reply reply) {
-		// 구현 예정
+
+		if (memberId == 0) {
+			return;
+		}
+
+		ResultData actorCanDeleteRd = actorCanDelete(memberId, reply);
+		reply.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
+
+		ResultData actorCanModifyRd = actorCanModify(memberId, reply);
+		reply.setExtra__actorCanModify(actorCanDeleteRd.isSuccess());
+
+	}
+
+	private ResultData actorCanDelete(int memberId, Reply reply) {
+
+		if (reply == null) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", reply.getId()));
+		}
+
+		if (reply.getMemberId() != memberId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+
+		return ResultData.from("S-1", "삭제가능합니다.");
+	}
+
+	private ResultData actorCanModify(int memberId, Reply reply) {
+
+		if (reply == null) {
+			return ResultData.from("F-1", Ut.f("%s번 게시물을 찾을 수 없습니다.", reply.getId()));
+		}
+
+		if (reply.getMemberId() != memberId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+
+		return ResultData.from("S-1", "수정가능합니다.");
 	}
 
 }
