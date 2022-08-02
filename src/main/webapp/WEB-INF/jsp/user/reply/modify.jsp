@@ -21,7 +21,7 @@
 					<tr>
 						<th>게시물 제목</th>
 						<td>
-							<div>제목</div>
+							<div>${ relDataTitle }</div>
 						</td>
 					</tr>
 					<tr>

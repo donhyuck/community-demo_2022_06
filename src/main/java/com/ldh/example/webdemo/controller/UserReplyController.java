@@ -5,8 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ldh.example.webdemo.service.ArticleService;
 import com.ldh.example.webdemo.service.ReplyService;
 import com.ldh.example.webdemo.util.Ut;
+import com.ldh.example.webdemo.vo.Article;
 import com.ldh.example.webdemo.vo.Reply;
 import com.ldh.example.webdemo.vo.ResultData;
 import com.ldh.example.webdemo.vo.Rq;
@@ -15,10 +17,12 @@ import com.ldh.example.webdemo.vo.Rq;
 public class UserReplyController {
 
 	private ReplyService replyService;
+	private ArticleService articleService;
 	private Rq rq;
 
-	public UserReplyController(ReplyService replyService, Rq rq) {
+	public UserReplyController(ReplyService replyService, ArticleService articleService, Rq rq) {
 		this.replyService = replyService;
+		this.articleService = articleService;
 		this.rq = rq;
 	}
 
@@ -71,7 +75,17 @@ public class UserReplyController {
 			return rq.historyBackOnView(actorCanModifyRd.getMsg());
 		}
 
+		// 댓글에 등록된 게시글 제목을 가져오도록
+		String relDataTitle = "";
+
+		switch (reply.getRelTypeCode()) {
+		case "article":
+			Article article = articleService.getArticle(reply.getRelId());
+			relDataTitle = article.getTitle();
+		}
+
 		model.addAttribute("reply", reply);
+		model.addAttribute("relDataTitle", relDataTitle);
 
 		return "user/reply/modify";
 	}

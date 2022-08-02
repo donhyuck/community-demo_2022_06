@@ -51,6 +51,13 @@
 		</if>
 	</select>
 
+	<select id="getArticle" resultType="Article">
+		SELECT A.*
+		FROM article AS A
+		WHERE
+		A.id = #{id}
+	</select>
+
 	<insert id="writeArticle">
 		INSERT INTO article
 		SET regDate = NOW(),

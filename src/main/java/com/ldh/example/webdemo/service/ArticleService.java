@@ -52,6 +52,11 @@ public class ArticleService {
 		return articles;
 	}
 
+	public Article getArticle(int id) {
+
+		return articleRepository.getArticle(id);
+	}
+
 	private void updateForPrintData(int actorId, Article article) {
 
 		if (article == null) {

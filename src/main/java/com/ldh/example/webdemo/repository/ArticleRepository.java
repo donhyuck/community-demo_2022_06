@@ -14,6 +14,8 @@ public interface ArticleRepository {
 	public List<Article> getForPrintArticles(int boardId, int limitStart, int limitTake, String searchKeyword,
 			String keywordType);
 
+	public Article getArticle(int id);
+
 	public void writeArticle(int memberId, int boardId, String title, String body);
 
 	public void modifyArticle(int id, String title, String body);
