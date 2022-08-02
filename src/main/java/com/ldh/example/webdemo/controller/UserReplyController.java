@@ -77,15 +77,18 @@ public class UserReplyController {
 
 		// 댓글에 등록된 게시글 제목을 가져오도록
 		String relDataTitle = "";
+		String relDataBody = "";
 
 		switch (reply.getRelTypeCode()) {
 		case "article":
 			Article article = articleService.getArticle(reply.getRelId());
 			relDataTitle = article.getTitle();
+			relDataBody = article.getBody();
 		}
 
 		model.addAttribute("reply", reply);
 		model.addAttribute("relDataTitle", relDataTitle);
+		model.addAttribute("relDataBody", relDataBody);
 
 		return "user/reply/modify";
 	}
