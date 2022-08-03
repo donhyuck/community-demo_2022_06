@@ -122,5 +122,11 @@ public class UserMemberController {
 
 		return rq.jsReplace("로그아웃 처리되었습니다.", "/");
 	}
+	
+	@RequestMapping("/user/member/myPage")
+	public String showMyPage() {
+
+		return "user/member/myPage";
+	}
 
 }
