@@ -122,17 +122,40 @@ public class UserMemberController {
 
 		return rq.jsReplace("로그아웃 처리되었습니다.", "/");
 	}
-	
+
 	@RequestMapping("/user/member/myPage")
 	public String showMyPage() {
 
 		return "user/member/myPage";
 	}
-	
+
 	@RequestMapping("/user/member/checkPassword")
 	public String showCheckPW() {
 
 		return "user/member/checkPassword";
+	}
+
+	@RequestMapping("/user/member/doCheckPassword")
+	@ResponseBody
+	public String doCheckPassword(String loginPw, String replaceUri) {
+
+		// 입력데이터 유효성 검사
+		if (Ut.empty(loginPw)) {
+			return rq.jsHistoryBack("비밀번호(을)를 입력해주세요.");
+		}
+
+		// 비밀번호 확인
+		if (rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
+			return rq.jsHistoryBack("잘못된 비밀번호 입니다.");
+		}
+
+		return rq.jsReplace("", replaceUri);
+	}
+
+	@RequestMapping("/user/member/modify")
+	public String showModify() {
+
+		return "user/member/modify";
 	}
 
 }
