@@ -128,5 +128,11 @@ public class UserMemberController {
 
 		return "user/member/myPage";
 	}
+	
+	@RequestMapping("/user/member/checkPassword")
+	public String showCheckPW() {
+
+		return "user/member/checkPassword";
+	}
 
 }

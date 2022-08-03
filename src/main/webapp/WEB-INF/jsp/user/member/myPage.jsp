@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.ldh.example.webdemo.util.Ut"%>
+
 <c:set var="pageTitle" value="회원정보" />
 <%@include file="../common/head.jspf"%>
 
@@ -53,7 +55,8 @@
 		<!-- 회원정보 조작 영역 시작 -->
 		<div class="btns mt-3">
 			<button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
-			<a class="btn btn-primary" href="../member/checkPassword">회원정보 수정</a>
+			<a class="btn btn-primary" href="../member/checkPassword?replaceUri=${ Ut.getUriEncoded('../member/modify') }">회원정보
+				수정</a>
 			<a class="btn btn-secondary" href="../member/doLeave?id=${ member.id }"
 				onclick="if ( confirm('정말 탈퇴하시겠습니까?') == false) return false;">회원탈퇴</a>
 		</div>
