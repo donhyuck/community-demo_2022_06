@@ -52,4 +52,9 @@ public class MemberService {
 	private Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
+
+	public void doModify(int id, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+
+		memberRepository.doModify(id, loginPw, name, nickname, cellphoneNo, email);
+	}
 }

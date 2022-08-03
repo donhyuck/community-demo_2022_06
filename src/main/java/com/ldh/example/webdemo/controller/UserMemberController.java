@@ -158,4 +158,35 @@ public class UserMemberController {
 		return "user/member/modify";
 	}
 
+	@RequestMapping("/user/member/doModify")
+	@ResponseBody
+	public String doModify(String loginPw, String name, String nickname, String cellphoneNo, String email) {
+
+		// 입력데이터 유효성 검사
+		if (Ut.empty(loginPw)) {
+			return Ut.jsHistoryBack("비밀번호(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(name)) {
+			return Ut.jsHistoryBack("이름(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(nickname)) {
+			return Ut.jsHistoryBack("별명(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(cellphoneNo)) {
+			return Ut.jsHistoryBack("연락처(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(email)) {
+			return Ut.jsHistoryBack("이메일(을)를 입력해주세요.");
+		}
+
+		// 회원정보 수정
+		memberService.doModify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNo, email);
+
+		return Ut.jsReplace(Ut.f("%s님 회원정보가 수정되었습니다.", null), "/");
+	}
+
 }

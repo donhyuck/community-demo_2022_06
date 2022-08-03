@@ -9,15 +9,16 @@ import com.ldh.example.webdemo.vo.Member;
 @Mapper
 public interface MemberRepository {
 
-	public void doJoin(@Param("loginId") String loginId, @Param("loginPw") String loginPw, @Param("name") String name,
-			@Param("nickname") String nickname, @Param("cellphoneNo") String cellphoneNo, @Param("email") String email);
+	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email);
 
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
 
-	public Member getMemberById(@Param("id") int id);
+	public Member getMemberById(int id);
 
-	public Member getMemberByLoginId(@Param("loginId") String loginId);
+	public Member getMemberByLoginId(String loginId);
 
-	public Member getMemberByNameAndEmail(@Param("name") String name, @Param("email") String email);
+	public Member getMemberByNameAndEmail(String name, String email);
+
+	public void doModify(int id, String loginPw, String name, String nickname, String cellphoneNo, String email);
 }

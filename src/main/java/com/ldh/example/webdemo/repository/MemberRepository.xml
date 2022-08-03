@@ -38,4 +38,19 @@
 		WHERE m.name = #{name}
 		AND m.email = #{email}
 	</select>
+
+	<update id="doModify">
+		UPDATE `member`
+		SET updateDate =
+		NOW(),
+		loginPw =
+		#{loginPw},
+		`name` = #{name},
+		nickname =
+		#{nickname},
+		cellphoneNo =
+		#{cellphoneNo},
+		email = #{email}
+		WHERE id = #{id}
+	</update>
 </mapper>
