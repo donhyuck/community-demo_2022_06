@@ -3,9 +3,42 @@
 <c:set var="pageTitle" value="게시물 수정" />
 <%@include file="../common/head.jspf"%>
 
+<!-- 게시글 수정시 유효성 검사 스크립트 시작 -->
+<script>
+	let ArticleModify__submitFormDone = false;
+
+	function ArticleModify__submitForm(form) {
+
+		if (ArticleModify__submitFormDone) {
+			alert('처리중입니다.');
+			return;
+		}
+
+		// 좌우 공백 제거
+		form.title.value = form.title.value.trim();
+		if (form.title.value.length == 0) {
+			alert('제목을 입력해주세요.');
+			form.title.focus();
+			return;
+		}
+
+		form.body.value = form.body.value.trim();
+		if (form.body.value.length == 0) {
+			alert('내용을 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+
+		ArticleModify__submitFormDone = true;
+		form.submit();
+	}
+</script>
+<!-- 게시글 수정시 유효성 검사 스크립트 끝 -->
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="post" action="../article/doModify">
+		<form class="table-box-type-1" method="post" action="../article/doModify"
+			onsubmit="ArticleModify__submitForm(this); return false;">
 			<input type="hidden" name="id" value="${ article.id }" />
 			<table>
 				<colgroup>

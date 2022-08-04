@@ -2,6 +2,7 @@ package com.ldh.example.webdemo.controller;
 
 import java.util.List;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,9 +128,13 @@ public class UserArticleController {
 
 	@RequestMapping("/user/article/doWrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body, String replaceUri) {
+	public String doWrite(@RequestParam(defaultValue = "0") int boardId, String title, String body, String replaceUri) {
 
 		// 입력데이터 유효성 검사
+		if (boardId == 0) {
+			return rq.jsHistoryBack("게시판을 선택해주세요.");
+		}
+
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("제목(을)를 입력해주세요.");
 		}
