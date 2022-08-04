@@ -164,7 +164,7 @@ public class UserMemberController {
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(loginPw)) {
-			return Ut.jsHistoryBack("비밀번호(을)를 입력해주세요.");
+			loginPw = null;
 		}
 
 		if (Ut.empty(name)) {
@@ -186,7 +186,10 @@ public class UserMemberController {
 		// 회원정보 수정
 		memberService.doModify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNo, email);
 
-		return Ut.jsReplace(Ut.f("%s님 회원정보가 수정되었습니다.", null), "/");
+		// 수정 후 로그아웃
+		rq.logout();
+
+		return Ut.jsReplace(Ut.f("%s님 회원정보가 수정되었습니다.", nickname), "/user/member/myPage");
 	}
 
 }
