@@ -149,25 +149,52 @@ public class UserMemberController {
 			return rq.jsHistoryBack("잘못된 비밀번호 입니다.");
 		}
 
-		// 회원정보 수정 요청시 인증코드 발급
+		// 인증코드 발급
 		if (replaceUri.equals("../member/modify")) {
-			String memberModifyAuthKey = memberService.getAuthKey(rq.getLoginedMemberId());
+			String authKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
 
-			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
+			replaceUri += "?memberModifyAuthKey=" + authKey;
 		}
 
 		return rq.jsReplace("", replaceUri);
 	}
 
 	@RequestMapping("/user/member/modify")
-	public String showModify() {
+	public String showModify(String memberModifyAuthKey) {
+
+		// 회원수정으로 바로 이동하는 경우
+		if (Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackOnView("비밀번호 확인이 필요합니다. 잘못된 접근입니다.");
+		}
+
+		// 인증코드 확인
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(),
+				memberModifyAuthKey);
+
+		if (checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackOnView(checkMemberModifyAuthKeyRd.getMsg());
+		}
 
 		return "user/member/modify";
 	}
 
 	@RequestMapping("/user/member/doModify")
 	@ResponseBody
-	public String doModify(String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public String doModify(String memberModifyAuthKey, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
+
+		// 회원수정으로 바로 이동하는 경우
+		if (Ut.empty(memberModifyAuthKey)) {
+			return rq.jsHistoryBack("비밀번호 확인이 필요합니다. 잘못된 접근입니다.");
+		}
+
+		// 인증코드 확인
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(),
+				memberModifyAuthKey);
+
+		if (checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.jsHistoryBack(checkMemberModifyAuthKeyRd.getMsg());
+		}
 
 		// 입력데이터 유효성 검사
 		if (Ut.empty(loginPw)) {
@@ -196,7 +223,7 @@ public class UserMemberController {
 		// 수정 후 로그아웃
 		rq.logout();
 
-		return Ut.jsReplace(Ut.f("%s님 회원정보가 수정되었습니다.", nickname), "/user/member/myPage");
+		return Ut.jsReplace(Ut.f("%s님 회원정보가 수정되었습니다. 로그인 후 이용해주세요.", nickname), "/user/member/login");
 	}
 
 }

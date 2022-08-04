@@ -59,12 +59,24 @@ public class MemberService {
 		memberRepository.doModify(id, loginPw, name, nickname, cellphoneNo, email);
 	}
 
-	public String getAuthKey(int actorId) {
+	public String genMemberModifyAuthKey(int memberId) {
 
-		String authKey = Ut.getTempPassword(10);
+		String memberModifyAuthKey = Ut.getTempPassword(10);
 
-		attrService.setValue("member", actorId, "extra", "authKey", authKey, Ut.getDateStrLater(60 * 5));
+		attrService.setValue("member", memberId, "extra", "memberModifyAuthKey", memberModifyAuthKey,
+				Ut.getDateStrLater(60 * 5));
 
-		return authKey;
+		return memberModifyAuthKey;
+	}
+
+	public ResultData checkMemberModifyAuthKey(int memberId, String memberModifyAuthKey) {
+
+		String saved = attrService.getValue("member", memberId, "extra", "memberModifyAuthKey");
+
+		if (saved.equals(memberModifyAuthKey) == false) {
+			return ResultData.from("F-1", "일치하지 않거나 만료되었습니다.");
+		}
+
+		return ResultData.from("S-1", "정상적인 코드입니다.");
 	}
 }
