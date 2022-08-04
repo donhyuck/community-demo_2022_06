@@ -1,6 +1,5 @@
 package com.ldh.example.webdemo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ldh.example.webdemo.repository.MemberRepository;
@@ -12,9 +11,11 @@ import com.ldh.example.webdemo.vo.ResultData;
 public class MemberService {
 
 	private MemberRepository memberRepository;
+	private AttrService attrService;
 
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(MemberRepository memberRepository, AttrService attrService) {
 		this.memberRepository = memberRepository;
+		this.attrService = attrService;
 	}
 
 	public ResultData<Integer> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
@@ -56,5 +57,14 @@ public class MemberService {
 	public void doModify(int id, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 
 		memberRepository.doModify(id, loginPw, name, nickname, cellphoneNo, email);
+	}
+
+	public String getAuthKey(int actorId) {
+
+		String authKey = Ut.getTempPassword(10);
+
+		attrService.setValue("member", actorId, "extra", "authKey", authKey, Ut.getDateStrLater(60 * 5));
+
+		return authKey;
 	}
 }

@@ -149,6 +149,13 @@ public class UserMemberController {
 			return rq.jsHistoryBack("잘못된 비밀번호 입니다.");
 		}
 
+		// 회원정보 수정 요청시 인증코드 발급
+		if (replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.getAuthKey(rq.getLoginedMemberId());
+
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
+		}
+
 		return rq.jsReplace("", replaceUri);
 	}
 
