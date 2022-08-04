@@ -23,6 +23,7 @@
 			return;
 		}
 
+		// 토스트UI 적용
 		const editor = $(form).find('.toast-ui-editor').data(
 				'data-toast-editor');
 		const markdown = editor.getMarkdown().trim();
@@ -32,7 +33,6 @@
 			editor.focus();
 			return;
 		}
-
 		form.body.value = markdown;
 
 		ArticleWrite__submitFormDone = true;

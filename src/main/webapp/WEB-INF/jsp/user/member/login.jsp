@@ -14,13 +14,13 @@
 					<tr>
 						<th>로그인 아이디</th>
 						<td>
-							<input name="loginId" type="text" class="w-96 input input-bordered w-full max-w-xs" placeholder="아이디를 입력해주세요." />
+							<input name="loginId" type="text" required="required" class="w-96 input input-bordered w-full max-w-xs" placeholder="아이디를 입력해주세요." />
 						</td>
 					</tr>
 					<tr>
 						<th>로그인 비밀번호</th>
 						<td>
-							<input name="loginPw" type="password" class=" w-96 input input-bordered w-full max-w-xs"
+							<input name="loginPw" type="password" required="required" class=" w-96 input input-bordered w-full max-w-xs"
 								placeholder="비밀번호를 입력해주세요." />
 						</td>
 					</tr>

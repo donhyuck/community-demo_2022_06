@@ -23,6 +23,7 @@
 			return;
 		}
 
+		// 토스트UI 적용
 		const editor = $(form).find('.toast-ui-editor').data(
 				'data-toast-editor');
 		const markdown = editor.getMarkdown().trim();
@@ -32,6 +33,7 @@
 			editor.focus();
 			return;
 		}
+		form.body.value = markdown;
 
 		ArticleModify__submitFormDone = true;
 		form.submit();
@@ -95,7 +97,7 @@
 						<th>내용</th>
 						<td>
 							<div class="toast-ui-editor">
-								<script type="text/x-template">${ article.body }</script>
+								<script type="text/x-template"></script>
 							</div>
 						</td>
 					</tr>
