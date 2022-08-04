@@ -151,9 +151,9 @@ public class UserMemberController {
 
 		// 인증코드 발급
 		if (replaceUri.equals("../member/modify")) {
-			String authKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
 
-			replaceUri += "?memberModifyAuthKey=" + authKey;
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
 		}
 
 		return rq.jsReplace("", replaceUri);
