@@ -22,9 +22,7 @@ public class ArticleService {
 
 		articleRepository.writeArticle(memberId, boardId, title, body);
 
-		int id = articleRepository.getLastInsertId();
-
-		return id;
+		return articleRepository.getLastInsertId();
 	}
 
 	public Article getForPrintArticle(int actorId, int id) {

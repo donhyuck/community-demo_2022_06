@@ -3,7 +3,7 @@
 <c:set var="pageTitle" value="회원가입" />
 <%@include file="../common/head.jspf"%>
 
-<!-- 회원정보 가입시 유효성 검사 스크립트 시작 -->
+<!-- 회원 가입시 유효성 검사 스크립트 시작 -->
 <script>
 	let MemberJoin__submitFormDone = false;
 
@@ -60,7 +60,7 @@
 		form.submit();
 	}
 </script>
-<!-- 회원정보 가입시 유효성 검사 스크립트 끝 -->
+<!-- 회원 가입시 유효성 검사 스크립트 끝 -->
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">

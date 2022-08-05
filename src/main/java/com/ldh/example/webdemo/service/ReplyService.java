@@ -18,13 +18,11 @@ public class ReplyService {
 		this.replyRepository = replyRepository;
 	}
 
-	public ResultData<Integer> writeReply(int memberId, String relTypeCode, int relId, String body) {
+	public int writeReply(int memberId, String relTypeCode, int relId, String body) {
 
 		replyRepository.writeReply(memberId, relTypeCode, relId, body);
 
-		int id = replyRepository.getLastInsertId();
-
-		return ResultData.from("S-1", Ut.f("%s번 댓글이 등록되었습니다.", id), "id", id);
+		return replyRepository.getLastInsertId();
 	}
 
 	public List<Reply> getForPrintReplies(int memberId, String relTypeCode, int relId) {

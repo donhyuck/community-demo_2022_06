@@ -33,6 +33,7 @@
 			editor.focus();
 			return;
 		}
+		
 		form.body.value = markdown;
 
 		ArticleWrite__submitFormDone = true;

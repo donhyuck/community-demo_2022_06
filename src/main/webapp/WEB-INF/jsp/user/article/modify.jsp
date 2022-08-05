@@ -33,6 +33,7 @@
 			editor.focus();
 			return;
 		}
+		
 		form.body.value = markdown;
 
 		ArticleModify__submitFormDone = true;
@@ -97,7 +98,7 @@
 						<th>내용</th>
 						<td>
 							<div class="toast-ui-editor">
-								<script type="text/x-template"></script>
+								<script type="text/x-template">${ article.body }</script>
 							</div>
 						</td>
 					</tr>

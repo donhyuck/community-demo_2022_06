@@ -43,9 +43,8 @@ public class UserReplyController {
 			return rq.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 
-		ResultData<Integer> writeReplyRd = replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
-
-		int replyId = writeReplyRd.getData1();
+		// 댓글 등록
+		int replyId = replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
 
 		if (Ut.empty(replaceUri)) {
 
