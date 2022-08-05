@@ -35,37 +35,20 @@ public class UserReactionController {
 		return rq.jsReplace(doReactionRd.getMsg(), replaceUri);
 	}
 
-	@RequestMapping("/user/reaction/doCancelLike")
+	@RequestMapping("/user/reaction/doCancelReaction")
 	@ResponseBody
-	public String doCancelLike(String relTypeCode, int relId, String replaceUri) {
+	public String doCancelReaction(String relTypeCode, int relId, String replaceUri, int point) {
 
-		ResultData actorCanCancelReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
-				relTypeCode, relId);
-
-		if (actorCanCancelReactionPointRd.isSuccess()) {
-			return rq.jsHistoryBack("이미 취소되었습니다.");
-		}
-
-		ResultData doCancelLikeRd = reactionPointService.doCancelLike(rq.getLoginedMemberId(), relTypeCode, relId);
-
-		return rq.jsReplace(doCancelLikeRd.getMsg(), replaceUri);
-	}
-
-	@RequestMapping("/user/reaction/doCancelDislike")
-	@ResponseBody
-	public String doCancelDislike(String relTypeCode, int relId, String replaceUri) {
-
-		ResultData actorCanCancelReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
-				relTypeCode, relId);
-
-		if (actorCanCancelReactionPointRd.isSuccess()) {
-			return rq.jsHistoryBack("이미 취소되었습니다.");
-		}
-
-		ResultData doCancelDislikeRd = reactionPointService.doCancelDislike(rq.getLoginedMemberId(), relTypeCode,
+		ResultData actorCanCancelReactionRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
 				relId);
 
-		return rq.jsReplace(doCancelDislikeRd.getMsg(), replaceUri);
-	}
+		if (actorCanCancelReactionRd.isSuccess()) {
+			return rq.jsHistoryBack("이미 취소되었습니다.");
+		}
 
+		ResultData doCancelReactionRd = reactionPointService.doCancelReaction(rq.getLoginedMemberId(), relTypeCode,
+				relId, point);
+
+		return rq.jsReplace(doCancelReactionRd.getMsg(), replaceUri);
+	}
 }

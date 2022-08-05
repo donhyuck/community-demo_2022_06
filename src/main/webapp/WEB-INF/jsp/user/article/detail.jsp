@@ -116,20 +116,23 @@
 								</div>
 
 								<c:if test="${ actorCanMakeRP }">
-									<a href="/user/reaction/doReaction?point=1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+									<a
+										href="/user/reaction/doReaction?point=1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-error btn-xs btn-outline mr-1">
-										<span>좋aaaaa아요 👍</span>
+										<span>좋아요 👍</span>
 									</a>
-									<a href="/user/reaction/doReaction?point=-1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+									<a
+										href="/user/reaction/doReaction?point=-1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-info btn-xs btn-outline">
-										<span>싫aaaaaa어요 👎</span>
+										<span>싫어요 👎</span>
 									</a>
 								</c:if>
 
 								<c:if test="${ actorCanCancelLike }">
-									<a href="/user/reaction/doCancelLike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+									<a
+										href="/user/reaction/doCancelReaction?point=1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-error btn-xs mr-1">
-										<span>좋아pppppppppppp요 👍</span>
+										<span>좋아요 👍</span>
 									</a>
 									<span>&nbsp;</span>
 									<a href="#" onclick="alert(this.title); return false;" title="먼저 [좋아요 👍]를 취소해주세요."
@@ -145,9 +148,9 @@
 									</a>
 									<span>&nbsp;</span>
 									<a
-										href="/user/reaction/doCancelDislike?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+										href="/user/reaction/doCancelReaction?point=-1&relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 										class="btn btn-info btn-xs">
-										<span>싫xxxxx어요 👎</span>
+										<span>싫어요 👎</span>
 									</a>
 								</c:if>
 							</div>

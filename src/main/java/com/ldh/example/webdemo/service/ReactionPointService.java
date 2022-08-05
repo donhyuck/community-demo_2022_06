@@ -56,31 +56,27 @@ public class ReactionPointService {
 		return ResultData.from("S-1", Ut.f("%d 번 %s [%s] 처리", relId, forPrintCodeName, forPrintFeedbackName));
 	}
 
-	public ResultData doCancelLike(int memberId, String relTypeCode, int relId) {
+	public ResultData doCancelReaction(int memberId, String relTypeCode, int relId, int point) {
 
 		String forPrintCodeName = "";
-		reactionPointRepository.doCancelLike(memberId, relTypeCode, relId);
+		String forPrintFeedbackName = "";
 
 		switch (relTypeCode) {
 		case "article":
-			articleService.decreaseGoodRP(relId);
 			forPrintCodeName = "게시글";
+
+			if (point > 0) {
+				forPrintFeedbackName = "좋아요";
+				articleService.decreaseGoodRP(relId);
+				reactionPointRepository.doCancelLike(memberId, relTypeCode, relId);
+
+			} else if (point < 0) {
+				forPrintFeedbackName = "싫어요";
+				articleService.decreaseBadRP(relId);
+				reactionPointRepository.doCancelDislike(memberId, relTypeCode, relId);
+			}
 		}
 
-		return ResultData.from("S-1", Ut.f("%d 번 %s [좋아요] 취소", relId, forPrintCodeName));
-	}
-
-	public ResultData doCancelDislike(int memberId, String relTypeCode, int relId) {
-
-		String forPrintCodeName = "";
-		reactionPointRepository.doCancelDislike(memberId, relTypeCode, relId);
-
-		switch (relTypeCode) {
-		case "article":
-			articleService.decreaseBadRP(relId);
-			forPrintCodeName = "게시글";
-		}
-
-		return ResultData.from("S-1", Ut.f("%d 번 %s [싫어요] 취소", relId, forPrintCodeName));
+		return ResultData.from("S-1", Ut.f("%d 번 %s [%s] 취소", relId, forPrintCodeName, forPrintFeedbackName));
 	}
 }
