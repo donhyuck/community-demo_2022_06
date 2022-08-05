@@ -15,7 +15,7 @@
 		#{memberId}
 	</select>
 
-	<insert id="doMakeLike">
+	<insert id="doReaction">
 		INSERT INTO reactionPoint
 		SET regDate = NOW(),
 		updateDate = NOW(),
@@ -23,34 +23,14 @@
 		relTypeCode =
 		#{relTypeCode},
 		relId = #{relId},
-		`point` = 1
+		`point` = #{point}
 	</insert>
 
-	<insert id="doMakeDislike">
-		INSERT INTO reactionPoint
-		SET regDate = NOW(),
-		updateDate = NOW(),
-		memberId = #{memberId},
-		relTypeCode =
-		#{relTypeCode},
-		relId = #{relId},
-		`point` = -1
-	</insert>
-
-	<delete id="doCancelLike">
+	<delete id="doCancelReaction">
 		DELETE FROM reactionPoint
 		WHERE memberId =
 		#{memberId}
 		AND relTypeCode = #{relTypeCode}
 		AND relId = #{relId}
 	</delete>
-
-	<delete id="doCancelDislike">
-		DELETE FROM reactionPoint
-		WHERE memberId =
-		#{memberId}
-		AND relTypeCode = #{relTypeCode}
-		AND relId = #{relId}
-	</delete>
-
 </mapper>

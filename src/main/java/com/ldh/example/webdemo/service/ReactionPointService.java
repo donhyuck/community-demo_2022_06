@@ -40,16 +40,15 @@ public class ReactionPointService {
 		switch (relTypeCode) {
 		case "article":
 			forPrintCodeName = "게시글";
+			reactionPointRepository.doReaction(memberId, relTypeCode, relId, point);
 
 			if (point > 0) {
 				forPrintFeedbackName = "좋아요";
 				articleService.increaseGoodRP(relId);
-				reactionPointRepository.doMakeLike(memberId, relTypeCode, relId);
 
 			} else if (point < 0) {
 				forPrintFeedbackName = "싫어요";
 				articleService.increaseBadRP(relId);
-				reactionPointRepository.doMakeDislike(memberId, relTypeCode, relId);
 			}
 		}
 
@@ -64,16 +63,15 @@ public class ReactionPointService {
 		switch (relTypeCode) {
 		case "article":
 			forPrintCodeName = "게시글";
+			reactionPointRepository.doCancelReaction(memberId, relTypeCode, relId);
 
 			if (point > 0) {
 				forPrintFeedbackName = "좋아요";
 				articleService.decreaseGoodRP(relId);
-				reactionPointRepository.doCancelLike(memberId, relTypeCode, relId);
 
 			} else if (point < 0) {
 				forPrintFeedbackName = "싫어요";
 				articleService.decreaseBadRP(relId);
-				reactionPointRepository.doCancelDislike(memberId, relTypeCode, relId);
 			}
 		}
 
