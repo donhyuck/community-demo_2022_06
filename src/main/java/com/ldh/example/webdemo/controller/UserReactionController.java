@@ -19,36 +19,20 @@ public class UserReactionController {
 		this.rq = rq;
 	}
 
-	@RequestMapping("/user/reaction/doMakeLike")
+	@RequestMapping("/user/reaction/doReaction")
 	@ResponseBody
-	public String doMakeLike(String relTypeCode, int relId, String replaceUri) {
+	public String doReaction(String relTypeCode, int relId, String replaceUri, int point) {
 
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
-				relTypeCode, relId);
+		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(), relTypeCode,
+				relId);
 
-		if (actorCanMakeReactionPointRd.isFail()) {
-			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
+		if (actorCanMakeReactionRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 
-		ResultData doMakeLikeRd = reactionPointService.doMakeLike(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData doReactionRd = reactionPointService.doReaction(rq.getLoginedMemberId(), relTypeCode, relId, point);
 
-		return rq.jsReplace(doMakeLikeRd.getMsg(), replaceUri);
-	}
-
-	@RequestMapping("/user/reaction/doMakeDislike")
-	@ResponseBody
-	public String doMakeDislike(String relTypeCode, int relId, String replaceUri) {
-
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeRP(rq.getLoginedMemberId(),
-				relTypeCode, relId);
-
-		if (actorCanMakeReactionPointRd.isFail()) {
-			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
-		}
-
-		ResultData doMakeDislikeRd = reactionPointService.doMakeDislike(rq.getLoginedMemberId(), relTypeCode, relId);
-
-		return rq.jsReplace(doMakeDislikeRd.getMsg(), replaceUri);
+		return rq.jsReplace(doReactionRd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/user/reaction/doCancelLike")
