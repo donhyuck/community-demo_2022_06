@@ -119,4 +119,14 @@ public class Rq {
 	public String getEncodedCurrentUri() {
 		return Ut.getUriEncoded(getCurrentUri());
 	}
+
+	public void printReplaceJs(String msg, String uri) {
+
+		resp.setContentType("text/html; charset=UTF-8");
+		print(Ut.jsReplace(msg, uri));
+	}
+
+	public String getLoginUri() {
+		return "../member/login?afterLoginUri=" + getEncodedCurrentUri();
+	}
 }

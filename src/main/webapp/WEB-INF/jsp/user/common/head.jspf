@@ -75,7 +75,7 @@
 						</c:if>
 						<c:if test="${ rq.isLogined() == false }">
 							<li>
-								<a href="/user/member/login">
+								<a href="${ rq.loginUri }">
 									<span>로그인</span>
 								</a>
 							</li>

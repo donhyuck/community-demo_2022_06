@@ -2,6 +2,7 @@ package com.ldh.example.webdemo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ldh.example.webdemo.service.MemberService;
@@ -77,7 +78,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw) {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue = "/") String afterLoginUri) {
 
 		// 로그인 확인
 		if (rq.isLogined() == true) {
@@ -106,7 +107,7 @@ public class UserMemberController {
 
 		rq.login(member);
 
-		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
+		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), afterLoginUri);
 	}
 
 	@RequestMapping("/user/member/doLogout")
