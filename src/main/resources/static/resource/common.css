@@ -1,21 +1,28 @@
 @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2')
+		format('woff2');
+	font-weight: 400;
+	font-style: normal;
 }
 
-html> body {
-    font-family: 'HallymGothic-Regular';
+html>body {
+	font-family: 'HallymGothic-Regular';
+}
+
+html>body, html>body .toastui-editor-contents, html>body .ProseMirror,
+	html>body .toastui-editor-md-code, html>body .toastui-editor-md-code-block
+	{
+	font-family: 'HallymGothic-Regular';
 }
 
 /* 라이브러리 */
-.table-box-type-1 > table {
+.table-box-type-1>table {
 	width: 100%;
 }
 
-.table-box-type-1 > table th,
-.table-box-type-1 > table td {
+.table-box-type-1>table th, .table-box-type-1>table td {
 	border: 1px solid black;
 	padding: 10px;
 }
