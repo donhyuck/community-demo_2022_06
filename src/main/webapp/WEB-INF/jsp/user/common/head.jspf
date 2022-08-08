@@ -66,21 +66,21 @@
 								<span>글작성</span>
 							</a>
 						</li>
-						<c:if test="${ rq.isLogined() == false }">
+						<c:if test="${ rq.logined == false }">
 							<li>
 								<a href="/user/member/join">
 									<span>회원가입</span>
 								</a>
 							</li>
 						</c:if>
-						<c:if test="${ rq.isLogined() == false }">
+						<c:if test="${ rq.logined == false }">
 							<li>
 								<a href="${ rq.loginUri }">
 									<span>로그인</span>
 								</a>
 							</li>
 						</c:if>
-						<c:if test="${ rq.isLogined() == true }">
+						<c:if test="${ rq.logined == true }">
 							<li>
 								<a href="/user/member/myPage">
 									<span>${ rq.loginedMember.nickname } 님</span>
