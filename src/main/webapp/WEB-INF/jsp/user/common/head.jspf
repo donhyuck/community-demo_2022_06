@@ -87,7 +87,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="/user/member/doLogout">
+								<a href="${ rq.logoutUri }">
 									<span>로그아웃</span>
 								</a>
 							</li>

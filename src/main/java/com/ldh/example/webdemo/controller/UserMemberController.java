@@ -112,7 +112,7 @@ public class UserMemberController {
 
 	@RequestMapping("/user/member/doLogout")
 	@ResponseBody
-	public String doLogout() {
+	public String doLogout(@RequestParam(defaultValue = "/") String afterLogoutUri) {
 
 		// 로그아웃 확인
 		if (rq.isLogined() == false) {
@@ -121,7 +121,7 @@ public class UserMemberController {
 
 		rq.logout();
 
-		return rq.jsReplace("로그아웃 처리되었습니다.", "/");
+		return rq.jsReplace("로그아웃 처리되었습니다.", afterLogoutUri);
 	}
 
 	@RequestMapping("/user/member/myPage")
